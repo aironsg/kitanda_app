@@ -4,6 +4,7 @@ import 'package:kitanda_app/app/src/auth/config/custom_color.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+// ignore: must_be_immutable
 class SingUpScreen extends StatelessWidget {
   SingUpScreen({Key? key}) : super(key: key);
 

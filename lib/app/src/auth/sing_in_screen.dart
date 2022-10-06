@@ -114,7 +114,8 @@ class SingInScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(18),
                             )),
                         onPressed: () {
-                          //logigica de token
+                          //logica de token
+                          Get.toNamed('/base');
                         },
                         child: const Text(
                           'Entrar',
