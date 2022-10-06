@@ -2,9 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:kitanda_app/app/src/auth/components/custom_form_field.dart';
 import 'package:kitanda_app/app/src/auth/config/custom_color.dart';
 import 'package:get/get.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class SingUpScreen extends StatelessWidget {
-  const SingUpScreen({Key? key}) : super(key: key);
+  SingUpScreen({Key? key}) : super(key: key);
+
+  var cpfFormatter = MaskTextInputFormatter(
+    mask: '###.###.###-##',
+    filter: {'#': RegExp(r'[0-9]')},
+  );
+  var phoneFormatter = MaskTextInputFormatter(
+    mask: '(##)#-####-####',
+    filter: {'#': RegExp(r'[0-9]')},
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -98,19 +108,21 @@ class SingUpScreen extends StatelessWidget {
                     ),
 
                     //Telefone
-                    const CustomFormField(
+                    CustomFormField(
                       inputType: TextInputType.phone,
                       label: 'Celular',
-                      hint: '81.9.9999.9999',
-                      icon: Icon(Icons.phone),
+                      hint: '(81)9-9999-9999',
+                      icon: const Icon(Icons.phone),
+                      inputFormatters: [phoneFormatter],
                     ),
 
                     //CPF
-                    const CustomFormField(
+                    CustomFormField(
                       inputType: TextInputType.number,
                       label: 'CPF',
                       hint: '000.111.222.33',
-                      icon: Icon(Icons.file_copy),
+                      icon: const Icon(Icons.file_copy),
+                      inputFormatters: [cpfFormatter],
                     ),
 
                     //Botão cadastrar

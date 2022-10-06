@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const SingInScreen()),
-        GetPage(name: '/cadastro', page: () => const SingUpScreen()),
+        GetPage(name: '/cadastro', page: () => SingUpScreen()),
       ],
     );
   }

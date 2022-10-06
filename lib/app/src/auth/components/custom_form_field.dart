@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomFormField extends StatefulWidget {
   //este atributo sera importante para o novo usuario
@@ -7,15 +8,18 @@ class CustomFormField extends StatefulWidget {
   final String hint;
   final Icon icon;
   final bool isSecret;
+  final List<TextInputFormatter>? inputFormatters;
 
-  const CustomFormField({
-    Key? key,
-    required this.inputType,
-    required this.label,
-    required this.hint,
-    required this.icon,
-    this.isSecret = false, //atributo opcional
-  }) : super(key: key);
+  const CustomFormField(
+      {Key? key,
+      required this.inputType,
+      required this.label,
+      required this.hint,
+      required this.icon,
+      this.isSecret = false,
+      this.inputFormatters //atributo opcional
+      })
+      : super(key: key);
 
   @override
   State<CustomFormField> createState() => _CustomFormFieldState();
@@ -35,6 +39,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
       child: TextFormField(
+        inputFormatters: widget.inputFormatters,
         obscureText: isObscure,
         keyboardType: widget.inputType,
         //aqui vem o controller
