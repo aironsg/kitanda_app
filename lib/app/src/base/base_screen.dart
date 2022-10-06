@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:kitanda_app/app/src/auth/config/custom_color.dart';
+import 'package:kitanda_app/app/src/home/home_tab.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _BaseScreenState extends State<BaseScreen> {
             const NeverScrollableScrollPhysics(), //responsavel por travar o scrool de toque na tela
         controller: pageController,
         children: [
-          Container(color: Colors.red),
+          const HomeTab(),
           Container(color: Colors.blue),
           Container(color: Colors.yellow),
           Container(color: Colors.purple),
