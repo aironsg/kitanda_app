@@ -113,6 +113,32 @@ class _HomeTabState extends State<HomeTab> {
           ),
 
           //grid
+
+          Expanded(
+            child: GridView.builder(
+              physics:
+                  const BouncingScrollPhysics(), //responsavel por pausar o efeito de scroll
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 9 / 11.5),
+              itemCount: app_data.items.length,
+              itemBuilder: (_, index) {
+                return Container(
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  child: Center(
+                    child: Text('aqui será os itens'),
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
