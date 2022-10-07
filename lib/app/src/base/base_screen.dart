@@ -28,6 +28,8 @@ class _BaseScreenState extends State<BaseScreen> {
           Container(color: Colors.purple),
         ],
       ),
+
+      //bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
           onTap: (index) {

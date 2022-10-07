@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:kitanda_app/app/src/auth/config/custom_color.dart';
 
 class CategoryTile extends StatelessWidget {
-  final String category;
-  final bool isSelected;
-  final VoidCallback onPressed;
-
   const CategoryTile({
     Key? key,
     required this.category,
-    required this.isSelected,
     required this.onPressed,
+    required this.isSelected,
   }) : super(key: key);
 
+  final String category;
+  final bool isSelected;
+
+  final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
-    print('selecionado: $isSelected');
     return GestureDetector(
       onTap: onPressed,
       child: Align(
@@ -23,16 +22,16 @@ class CategoryTile extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 6.0),
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
             color:
                 isSelected ? CustomColor.customSwatchColor : Colors.transparent,
-            borderRadius: BorderRadius.circular(10.0),
           ),
           child: Text(
             category,
             style: TextStyle(
-              fontWeight: FontWeight.bold,
               color:
                   isSelected ? Colors.white : CustomColor.customContrasctColor,
+              fontWeight: FontWeight.bold,
               fontSize: isSelected ? 16 : 14,
             ),
           ),

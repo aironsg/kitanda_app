@@ -12,18 +12,17 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
+  List<String> categories = [
+    'Frutas',
+    'Verduras',
+    'Grãos',
+    'Carnes',
+    'Temperos',
+  ];
+
+  String selectedCategory = 'Verduras';
   @override
   Widget build(BuildContext context) {
-    List<String> categories = [
-      'Frutas',
-      'Verduras',
-      'Grãos',
-      'Carnes',
-      'Lergumes',
-      'Temperos'
-    ];
-
-    String? categorySelected;
     return Scaffold(
       //App bar
       appBar: AppBar(
@@ -33,11 +32,12 @@ class _HomeTabState extends State<HomeTab> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(top: 15.0, right: 20.0),
+
+            //Carrinho
             child: GestureDetector(
               onTap: () {
                 //logica para carrinho
               },
-              //Carrinho
               child: Badge(
                 badgeContent: Text(
                   '2',
@@ -54,6 +54,7 @@ class _HomeTabState extends State<HomeTab> {
           )
         ],
         elevation: 0,
+
         //Titulo
         title: Text.rich(
           TextSpan(
@@ -106,19 +107,19 @@ class _HomeTabState extends State<HomeTab> {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (_, index) {
                   return CategoryTile(
-                      onPressed: () {
-                        setState(
-                          () {
-                            categorySelected = categories[index];
-                          },
-                        );
-                      },
-                      category: categories[index],
-                      isSelected: categorySelected == categories[index]);
+                    onPressed: () {
+                      setState(() {
+                        selectedCategory = categories[index];
+                      });
+                    }, //fim onde pressed
+                    category: categories[index],
+                    isSelected: categories[index] == selectedCategory,
+                  );
                 },
                 separatorBuilder: (_, index) => const SizedBox(width: 10.0),
                 itemCount: categories.length),
           ),
+
           //grid
         ],
       ),
