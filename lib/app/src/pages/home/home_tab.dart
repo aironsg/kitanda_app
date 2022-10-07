@@ -1,7 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:kitanda_app/app/src/auth/config/custom_color.dart';
-
+import 'package:kitanda_app/app/src/config/custom_color.dart';
+import 'package:kitanda_app/app/src/config/app_data.dart' as app_data;
 import 'components/category.tile.dart';
 
 class HomeTab extends StatefulWidget {
@@ -12,14 +12,6 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  List<String> categories = [
-    'Frutas',
-    'Verduras',
-    'Grãos',
-    'Carnes',
-    'Temperos',
-  ];
-
   String selectedCategory = 'Verduras';
   @override
   Widget build(BuildContext context) {
@@ -109,15 +101,15 @@ class _HomeTabState extends State<HomeTab> {
                   return CategoryTile(
                     onPressed: () {
                       setState(() {
-                        selectedCategory = categories[index];
+                        selectedCategory = app_data.categories[index];
                       });
                     }, //fim onde pressed
-                    category: categories[index],
-                    isSelected: categories[index] == selectedCategory,
+                    category: app_data.categories[index],
+                    isSelected: app_data.categories[index] == selectedCategory,
                   );
                 },
                 separatorBuilder: (_, index) => const SizedBox(width: 10.0),
-                itemCount: categories.length),
+                itemCount: app_data.categories.length),
           ),
 
           //grid

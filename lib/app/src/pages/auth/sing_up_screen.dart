@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kitanda_app/app/src/auth/components/custom_form_field.dart';
-import 'package:kitanda_app/app/src/auth/config/custom_color.dart';
+import 'package:kitanda_app/app/src/pages/auth/components/custom_form_field.dart';
+import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 

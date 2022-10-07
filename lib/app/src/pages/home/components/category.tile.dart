@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kitanda_app/app/src/auth/config/custom_color.dart';
+import 'package:kitanda_app/app/src/config/custom_color.dart';
 
 class CategoryTile extends StatelessWidget {
   const CategoryTile({
