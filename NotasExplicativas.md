@@ -21,3 +21,4 @@ razão para isto, ficar mais facil de encontrar as funcionalidades do app, para 
  2- animated_text_kit: RESPONSAVEL POR CRIAR ANIMAÇÕES DE TRANSIÇÕES DE TEXTO
  3- mask_text_input_formatter: RESPONSAVEL POR FAZER FORMATAÇÕES DE MASCARAS EM CAMPOS DE TEXTO
  4- badges: RESPONSAVEL POR COLOCAR EFEITOS EM ICONES
+ 5- intl: RESPONSAVEL POR FORMATAÇÕES DE VALORES E DATAS E LINGUAS

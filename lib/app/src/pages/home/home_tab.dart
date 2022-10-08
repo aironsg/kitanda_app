@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/config/app_data.dart' as app_data;
+import 'package:kitanda_app/app/src/pages/home/components/item_tile.dart';
 import 'components/category.tile.dart';
 
 class HomeTab extends StatefulWidget {
@@ -126,15 +127,8 @@ class _HomeTabState extends State<HomeTab> {
                   childAspectRatio: 9 / 11.5),
               itemCount: app_data.items.length,
               itemBuilder: (_, index) {
-                return Container(
-                  padding: const EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  child: Center(
-                    child: Text('aqui será os itens'),
-                  ),
+                return ItemTile(
+                  item: app_data.items[index],
                 );
               },
             ),
