@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/pages/auth/sing_in_screen.dart';
-import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/pages/auth/sing_up_screen.dart';
 import 'package:kitanda_app/app/src/pages/base/base_screen.dart';
 
