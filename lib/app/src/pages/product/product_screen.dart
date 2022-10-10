@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/models/item_model.dart';
+import 'package:kitanda_app/app/src/pages/common_widgets/quantity_widget.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -26,7 +29,13 @@ class ProductScreen extends StatelessWidget {
             ),
           ),
           //Imagem
-          Expanded(child: Image.asset(item.imgUrl)),
+          Expanded(
+            child: Hero(
+              transitionOnUserGestures: true,
+              tag: item.imgUrl,
+              child: Image.asset(item.imgUrl),
+            ),
+          ),
           //Descrição
           Expanded(
             child: Container(
@@ -45,14 +54,13 @@ class ProductScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      //Titulo e Preço
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      //Titulo
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          //Titulo
                           Text(
                             item.itemName,
                             style: TextStyle(
@@ -61,88 +69,69 @@ class ProductScreen extends StatelessWidget {
                               color: CustomColor.customContrasctColor,
                             ),
                           ),
-
-                          //Preço e Unidade de Medida
-                          Row(
-                            children: [
-                              //Preço
-                              Text(
-                                service.formatNumberCurrency(item.price),
-                                style: TextStyle(
-                                  color: CustomColor.customSwatchColor,
-                                  fontSize: 24.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              //Unidade de Medida
-                              Text(
-                                '/${item.unit}',
-                                style: const TextStyle(
-                                  fontSize: 13.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
+                          //Botão de quantidade
+                          //vou mecher aqui jaja
+                          QuantityWidget(
+                            primaryIcon: Icons.remove,
+                            secondIcon: Icons.add,
+                            item: item,
+                          )
                         ],
                       ),
-                      //Botão de Quantidade
-                      Card(
-                          color: Colors.white,
-                          child: Row(
-                            children: const [
-                              Text('botao'),
-                              Text('texto'),
-                              Text('botao'),
-                            ],
-                          ))
+
+                      //Preço e Unidade de Medida
+                      Text(
+                        service.formatNumberCurrency(item.price),
+                        style: TextStyle(
+                          color: CustomColor.customSwatchColor,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      //Unidade de Medida
                     ],
                   ),
-                  // const Divider(
-                  //   thickness: 2,
-                  // ),
 
                   //Descrição produto
-                  Container(
-                    padding: const EdgeInsets.only(bottom: 15.0, top: 0),
-                    height: 180,
-                    child: ListView(
-                      children: [
-                        Text(
+
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Text(
                           item.description,
-                          style: const TextStyle(fontSize: 16.0),
+                          style: const TextStyle(
+                            height: 1.2,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
 
                   //Botão de Adicionar ao Carrinho
                   SizedBox(
                     height: 50,
-                    child: ElevatedButton(
+                    child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: CustomColor.customSwatchColor,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40.0))),
+                              borderRadius: BorderRadius.circular(20.0))),
                       onPressed: () {
                         //aqui ficará a logica de adicionar ao carrinho
                       },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: const [
-                          Icon(
-                            Icons.shopping_cart,
-                            color: Colors.white,
-                          ),
-                          Text(
-                            'Adicionar ao carrinho',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 24.0,
-                            ),
-                          ),
-                        ],
+                      icon: const Icon(
+                        Icons.shopping_cart_outlined,
+                        color: Colors.white,
+                      ),
+                      label: const Text(
+                        'Adicionar ao carrinho',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24.0,
+                        ),
                       ),
                     ),
                   ),
