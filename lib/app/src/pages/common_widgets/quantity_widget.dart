@@ -43,6 +43,7 @@ class _QuantityWidgetState extends State<QuantityWidget> {
         children: [
           Material(
             child: InkWell(
+              borderRadius: BorderRadius.circular(50),
               onTap: () {
                 setState(() {
                   if (quantity == 0) {
@@ -84,6 +85,7 @@ class _QuantityWidgetState extends State<QuantityWidget> {
           ),
           Material(
             child: InkWell(
+              borderRadius: BorderRadius.circular(50),
               onTap: () {
                 setState(() {
                   quantity++;
