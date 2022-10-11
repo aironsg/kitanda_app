@@ -72,10 +72,8 @@ class ProductScreen extends StatelessWidget {
                           //Botão de quantidade
                           //vou mecher aqui jaja
                           QuantityWidget(
-                            primaryIcon: Icons.remove,
-                            secondIcon: Icons.add,
                             item: item,
-                          )
+                          ),
                         ],
                       ),
 
