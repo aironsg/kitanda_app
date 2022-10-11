@@ -2,24 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/models/item_model.dart';
 
-class QuantityWidget extends StatefulWidget {
-  const QuantityWidget({Key? key, required this.item}) : super(key: key);
+class QuantityWidget extends StatelessWidget {
+  QuantityWidget({
+    Key? key,
+    required this.item,
+    required this.result,
+    required this.quantity,
+  }) : super(key: key);
   //acrescentar no contrutor os 2 icons
   final ItemModel item;
 
-  @override
-  State<QuantityWidget> createState() => _QuantityWidgetState();
-}
-
-class _QuantityWidgetState extends State<QuantityWidget> {
-  int quantity = 0;
-
+  final int quantity;
+  final Function(int) result;
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(4),
       height: 35,
-      width: 105,
+      width: 100,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(30),
@@ -34,41 +34,32 @@ class _QuantityWidgetState extends State<QuantityWidget> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          //Botão de decremento de quantidade
+          //esta unidade de medida será mudada de acordo com item inserido
+          //Botão de Incremento
           _QuantityButton(
             icon: Icons.remove,
             color: Colors.grey.shade300,
             onPressed: () {
-              //resposanvel por decrementar os itens
-              setState(() {
-                if (quantity == 0) {
-                  quantity = 0;
-                } else {
-                  quantity--;
-                }
-              });
+              if (quantity == 1) return;
+              var resultCount = quantity - 1;
+              result(resultCount);
             },
           ),
-          //Unidade de Medida
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Text(
-              '${quantity.toString()} ${widget.item.unit}',
-              style: const TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w600,
-              ),
+          //Quantidade
+          Text(
+            '${quantity.toString()} ${item.unit}',
+            style: const TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 15.0,
             ),
           ),
-
-          //Botão de incremento de item
+          //Botão de decremento
           _QuantityButton(
             icon: Icons.add,
             color: CustomColor.customSwatchColor,
             onPressed: () {
-              setState(() {
-                quantity++;
-              });
+              var resultCount = quantity + 1;
+              result(resultCount);
             },
           ),
         ],
@@ -80,7 +71,10 @@ class _QuantityWidgetState extends State<QuantityWidget> {
 //Classe de uso Especifico APenas para este Widget
 class _QuantityButton extends StatelessWidget {
   const _QuantityButton(
-      {required this.icon, required this.color, required this.onPressed});
+      {super.key,
+      required this.icon,
+      required this.color,
+      required this.onPressed});
 
   final IconData icon;
   final Color color;

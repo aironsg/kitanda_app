@@ -6,10 +6,19 @@ import 'package:kitanda_app/app/src/models/item_model.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/quantity_widget.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
-class ProductScreen extends StatelessWidget {
-  ProductScreen({Key? key, required this.item}) : super(key: key);
+class ProductScreen extends StatefulWidget {
+  const ProductScreen({Key? key, required this.item}) : super(key: key);
   final ItemModel item;
+
+  @override
+  State<ProductScreen> createState() => _ProductScreenState();
+}
+
+class _ProductScreenState extends State<ProductScreen> {
   final UtilsService service = UtilsService();
+
+  int value = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +41,8 @@ class ProductScreen extends StatelessWidget {
           Expanded(
             child: Hero(
               transitionOnUserGestures: true,
-              tag: item.imgUrl,
-              child: Image.asset(item.imgUrl),
+              tag: widget.item.imgUrl,
+              child: Image.asset(widget.item.imgUrl),
             ),
           ),
           //Descrição
@@ -62,7 +71,7 @@ class ProductScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            item.itemName,
+                            widget.item.itemName,
                             style: TextStyle(
                               fontSize: 28.0,
                               fontWeight: FontWeight.bold,
@@ -72,14 +81,20 @@ class ProductScreen extends StatelessWidget {
                           //Botão de quantidade
                           //vou mecher aqui jaja
                           QuantityWidget(
-                            item: item,
+                            item: widget.item,
+                            quantity: value,
+                            result: (quantity) {
+                              setState(() {
+                                value = quantity;
+                              });
+                            },
                           ),
                         ],
                       ),
 
                       //Preço e Unidade de Medida
                       Text(
-                        service.formatNumberCurrency(item.price),
+                        service.formatNumberCurrency(widget.item.price),
                         style: TextStyle(
                           color: CustomColor.customSwatchColor,
                           fontSize: 24.0,
@@ -98,7 +113,7 @@ class ProductScreen extends StatelessWidget {
                       child: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),
                         child: Text(
-                          item.description,
+                          widget.item.description,
                           style: const TextStyle(
                             height: 1.2,
                             fontSize: 16.0,
