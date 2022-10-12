@@ -8,10 +8,11 @@ class QuantityWidget extends StatelessWidget {
     required this.item,
     required this.result,
     required this.quantity,
+    this.isRemoveble = false,
   }) : super(key: key);
   //acrescentar no contrutor os 2 icons
   final ItemModel item;
-
+  final bool isRemoveble;
   final int quantity;
   final Function(int) result;
   @override
@@ -35,17 +36,24 @@ class QuantityWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           //esta unidade de medida será mudada de acordo com item inserido
+
           //Botão de Incremento
           _QuantityButton(
-            icon: quantity > 1 ? Icons.remove : Icons.delete_forever,
-            color: quantity > 1 ? Colors.grey.shade300 : Colors.red,
+            icon: !isRemoveble || quantity > 1
+                ? Icons.remove
+                : Icons.delete_forever,
+            color: !isRemoveble || quantity > 1
+                ? Colors.grey.shade500
+                : Colors.red,
             onPressed: () {
-              if (quantity == 1) return;
+              if (quantity == 1 && !isRemoveble) return;
               var resultCount = quantity - 1;
               result(resultCount);
             },
           ),
+
           //Quantidade
+
           Text(
             '${quantity.toString()} ${item.unit}',
             style: const TextStyle(
@@ -53,6 +61,7 @@ class QuantityWidget extends StatelessWidget {
               fontSize: 15.0,
             ),
           ),
+
           //Botão de decremento
           _QuantityButton(
             icon: Icons.add,

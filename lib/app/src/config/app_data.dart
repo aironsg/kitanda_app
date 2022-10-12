@@ -72,6 +72,8 @@ List<CartItemModel> cartItens = [
   CartItemModel(item: guava, quantity: 2),
   CartItemModel(item: papaya, quantity: 1),
   CartItemModel(item: mango, quantity: 2),
+  CartItemModel(item: grape, quantity: 2),
+  CartItemModel(item: kiwi, quantity: 1),
 ];
 
 List<String> categories = [

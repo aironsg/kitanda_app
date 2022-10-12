@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kitanda_app/app/src/pages/auth/components/custom_form_field.dart';
+import 'package:kitanda_app/app/src/pages/common_widgets/custom_form_field.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 
 class SingInScreen extends StatelessWidget {

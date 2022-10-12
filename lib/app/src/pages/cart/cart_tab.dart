@@ -1,13 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:kitanda_app/app/src/config/custom_color.dart';
-import 'package:kitanda_app/app/src/pages/common_widgets/quantity_widget.dart';
-import 'package:kitanda_app/app/src/services/utils_service.dart';
 import 'package:kitanda_app/app/src/config/app_data.dart' as app_data;
+import 'package:kitanda_app/app/src/config/custom_color.dart';
+import 'package:kitanda_app/app/src/models/cart_item_model.dart';
+import 'package:kitanda_app/app/src/pages/cart/components/cart_tile.dart';
+import 'package:kitanda_app/app/src/services/utils_service.dart';
 
-class CartTab extends StatelessWidget {
-  CartTab({Key? key}) : super(key: key);
+class CartTab extends StatefulWidget {
+  const CartTab({Key? key}) : super(key: key);
 
+  @override
+  State<CartTab> createState() => _CartTabState();
+}
+
+class _CartTabState extends State<CartTab> {
   final UtilsService utilsService = UtilsService();
+
+  void removerItemCart(CartItemModel cartItem) {
+    setState(() {
+      app_data.cartItens.remove(cartItem);
+    });
+  }
+
+  double cartTotalPrice() {
+    double total = 0;
+
+    for (var item in app_data.cartItens) {
+      total += item.totalPrice();
+    }
+
+    return total;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +49,10 @@ class CartTab extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemBuilder: (_, index) {
-                return ItemCart(index: index);
+                return CartTile(
+                  cartItem: app_data.cartItens[index],
+                  remove: removerItemCart,
+                );
               },
               itemCount: app_data.cartItens.length,
             ),
@@ -59,9 +85,10 @@ class CartTab extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+
                 //Preço
                 Text(
-                  utilsService.formatNumberCurrency(50.5),
+                  utilsService.formatNumberCurrency(cartTotalPrice()),
                   style: TextStyle(
                     fontSize: 24,
                     color: CustomColor.customSwatchColor,
@@ -77,7 +104,10 @@ class CartTab extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        bool? result = await showOrderConfirmation();
+                        print(result);
+                      },
                       child: const Text(
                         'Finalizar Compra',
                         style: TextStyle(
@@ -93,68 +123,41 @@ class CartTab extends StatelessWidget {
       ),
     );
   }
-}
 
-class ItemCart extends StatelessWidget {
-  int index;
-  final UtilsService utilsService = UtilsService();
-  ItemCart({
-    Key? key,
-    required this.index,
-  }) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    var valueTotalItem = app_data.cartItens[index].item.price *
-        app_data.cartItens[index].quantity;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8),
-      child: Container(
-        height: 60,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Image.asset(app_data.cartItens[index].item.imgUrl),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //mecher ainda no visual
-                      Text(
-                        app_data.cartItens[index].item.itemName,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+  Future<bool?> showOrderConfirmation() {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          title: const Text('Confirmação'),
+          content: const Text('Deseja Realmente Confirmar o Pedido?'),
+          actions: [
+            //Botão cancelar
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: const Text('Não')),
 
-                      //valor total do produto escolhido
-                      Text(
-                        utilsService.formatNumberCurrency(valueTotalItem),
-                        style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            color: CustomColor.customSwatchColor),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              QuantityWidget(
-                item: app_data.cartItens[index].item,
-                result: (index) {},
-                quantity: app_data.cartItens[index].quantity,
-              ),
-            ],
-          ),
-        ),
-      ),
+            //Botão confirmar
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                )),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                child: const Text(
+                  'Sim',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w600),
+                ))
+          ],
+        );
+      },
     );
   }
 }
