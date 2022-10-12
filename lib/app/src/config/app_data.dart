@@ -1,3 +1,5 @@
+import 'package:kitanda_app/app/src/models/cart_item_model.dart';
+
 import '../models/item_model.dart';
 
 ItemModel apple = ItemModel(
@@ -62,6 +64,14 @@ List<ItemModel> items = [
   kiwi,
   mango,
   papaya,
+];
+
+//Lista Itens carrinho
+List<CartItemModel> cartItens = [
+  CartItemModel(item: apple, quantity: 4),
+  CartItemModel(item: guava, quantity: 2),
+  CartItemModel(item: papaya, quantity: 1),
+  CartItemModel(item: mango, quantity: 2),
 ];
 
 List<String> categories = [

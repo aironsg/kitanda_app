@@ -3,7 +3,7 @@ import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/models/item_model.dart';
 
 class QuantityWidget extends StatelessWidget {
-  QuantityWidget({
+  const QuantityWidget({
     Key? key,
     required this.item,
     required this.result,
@@ -37,8 +37,8 @@ class QuantityWidget extends StatelessWidget {
           //esta unidade de medida será mudada de acordo com item inserido
           //Botão de Incremento
           _QuantityButton(
-            icon: Icons.remove,
-            color: Colors.grey.shade300,
+            icon: quantity > 1 ? Icons.remove : Icons.delete_forever,
+            color: quantity > 1 ? Colors.grey.shade300 : Colors.red,
             onPressed: () {
               if (quantity == 1) return;
               var resultCount = quantity - 1;

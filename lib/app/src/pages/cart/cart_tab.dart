@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
+import 'package:kitanda_app/app/src/pages/common_widgets/quantity_widget.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
+import 'package:kitanda_app/app/src/config/app_data.dart' as app_data;
 
 class CartTab extends StatelessWidget {
   CartTab({Key? key}) : super(key: key);
@@ -12,6 +14,7 @@ class CartTab extends StatelessWidget {
       backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
         foregroundColor: Colors.white,
+        automaticallyImplyLeading: false,
         title: const Text(
           'Carrinho',
           style: TextStyle(color: Colors.white),
@@ -20,9 +23,13 @@ class CartTab extends StatelessWidget {
       body: Column(
         children: [
           //Lista de Itens
-          const Expanded(child: const Placeholder()),
-          SizedBox(
-            height: 20,
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: (_, index) {
+                return ItemCart(index: index);
+              },
+              itemCount: app_data.cartItens.length,
+            ),
           ),
 
           //Descrição
@@ -83,6 +90,70 @@ class CartTab extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class ItemCart extends StatelessWidget {
+  int index;
+  final UtilsService utilsService = UtilsService();
+  ItemCart({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    var valueTotalItem = app_data.cartItens[index].item.price *
+        app_data.cartItens[index].quantity;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8),
+      child: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image.asset(app_data.cartItens[index].item.imgUrl),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //mecher ainda no visual
+                      Text(
+                        app_data.cartItens[index].item.itemName,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+
+                      //valor total do produto escolhido
+                      Text(
+                        utilsService.formatNumberCurrency(valueTotalItem),
+                        style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            color: CustomColor.customSwatchColor),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              QuantityWidget(
+                item: app_data.cartItens[index].item,
+                result: (index) {},
+                quantity: app_data.cartItens[index].quantity,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

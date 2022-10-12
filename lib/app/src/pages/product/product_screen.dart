@@ -79,7 +79,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             ),
                           ),
                           //Botão de quantidade
-                          //vou mecher aqui jaja
+
                           QuantityWidget(
                             item: widget.item,
                             quantity: value,
