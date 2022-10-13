@@ -1,4 +1,5 @@
 import 'package:kitanda_app/app/src/models/cart_item_model.dart';
+import 'package:kitanda_app/app/src/models/user_model.dart';
 
 import '../models/item_model.dart';
 
@@ -83,3 +84,10 @@ List<String> categories = [
   'Carnes',
   'Temperos',
 ];
+
+UserModel user = UserModel(
+    name: 'Airon',
+    email: 'airon@email.com',
+    phone: '00 0 0000-0000',
+    cpf: '000.000.000-00',
+    password: '');

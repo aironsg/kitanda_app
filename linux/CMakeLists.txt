@@ -6,7 +6,7 @@ project(runner LANGUAGES CXX)
 # the on-disk name of your application.
 set(BINARY_NAME "kitanda_app")
 # The unique GTK application identifier for this application. See:
-# https://wiki.gnome.org/HowDoI/ChooseApplicationID
+# https://wiki.gname.org/HowDoI/ChooseApplicationID
 set(APPLICATION_ID "com.example.kitanda_app")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent

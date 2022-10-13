@@ -91,19 +91,19 @@ class SingUpScreen extends StatelessWidget {
                       icon: Icon(Icons.email_outlined),
                     ),
 
-                    //Senha
+                    //password
                     const CustomFormField(
                       inputType: TextInputType.text,
-                      label: 'Senha',
-                      hint: 'senha forte',
+                      label: 'password',
+                      hint: 'password forte',
                       icon: Icon(Icons.lock_outline),
                       isSecret: true,
                     ),
 
-                    //Nome completo
+                    //name completo
                     const CustomFormField(
                       inputType: TextInputType.name,
-                      label: 'Nome Completo',
+                      label: 'name Completo',
                       hint: 'Fulano de tal',
                       icon: Icon(Icons.person),
                     ),
@@ -111,7 +111,7 @@ class SingUpScreen extends StatelessWidget {
                     //Telefone
                     CustomFormField(
                       inputType: TextInputType.phone,
-                      label: 'Celular',
+                      label: 'phone',
                       hint: '(81)9-9999-9999',
                       icon: const Icon(Icons.phone),
                       inputFormatters: [phoneFormatter],

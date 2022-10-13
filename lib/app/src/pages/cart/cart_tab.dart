@@ -104,9 +104,8 @@ class _CartTabState extends State<CartTab> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      onPressed: () async {
-                        bool? result = await showOrderConfirmation();
-                        print(result);
+                      onPressed: () {
+                        showOrderConfirmation();
                       },
                       child: const Text(
                         'Finalizar Compra',

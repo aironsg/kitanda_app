@@ -43,7 +43,7 @@ class ItemTile extends StatelessWidget {
                       child: Image.asset(item.imgUrl),
                     ),
                   ),
-                  //Nome do Item
+                  //name do Item
                   Text(
                     item.itemName,
                     style: TextStyle(

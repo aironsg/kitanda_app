@@ -95,11 +95,11 @@ class SingInScreen extends StatelessWidget {
                       icon: Icon(Icons.email_outlined), //prefixx
                     ),
 
-                    //Senha
+                    //password
                     const CustomFormField(
                       inputType: TextInputType.text,
-                      label: 'Senha',
-                      hint: 'Senha forte',
+                      label: 'password',
+                      hint: 'password forte',
                       icon: Icon(Icons.lock_outline), //prefixx
                       isSecret: true,
                     ),
@@ -124,13 +124,13 @@ class SingInScreen extends StatelessWidget {
                       ),
                     ),
 
-                    //Botão Esqueci a Senha
+                    //Botão Esqueci a password
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {},
                         child: Text(
-                          'Esqueci a senha',
+                          'Esqueci a password',
                           style: TextStyle(
                             color: CustomColor.customContrasctColor,
                           ),

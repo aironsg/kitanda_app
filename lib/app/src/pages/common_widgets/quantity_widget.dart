@@ -80,10 +80,7 @@ class QuantityWidget extends StatelessWidget {
 //Classe de uso Especifico APenas para este Widget
 class _QuantityButton extends StatelessWidget {
   const _QuantityButton(
-      {super.key,
-      required this.icon,
-      required this.color,
-      required this.onPressed});
+      {required this.icon, required this.color, required this.onPressed});
 
   final IconData icon;
   final Color color;
