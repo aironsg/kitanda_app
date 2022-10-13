@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/pages/cart/cart_tab.dart';
 import 'package:kitanda_app/app/src/pages/home/home_tab.dart';
+import 'package:kitanda_app/app/src/pages/orders/orders_tab.dart';
 import 'package:kitanda_app/app/src/pages/profile/profile_tab.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -23,11 +24,11 @@ class _BaseScreenState extends State<BaseScreen> {
         physics:
             const NeverScrollableScrollPhysics(), //responsavel por travar o scrool de toque na tela
         controller: pageController,
-        children: [
-          const HomeTab(),
-          const CartTab(),
-          Container(color: Colors.yellow),
-          const ProfileTab()
+        children: const [
+          HomeTab(),
+          CartTab(),
+          OrdersTab(),
+          ProfileTab(),
         ],
       ),
 

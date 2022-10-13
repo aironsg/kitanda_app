@@ -1,4 +1,5 @@
 import 'package:kitanda_app/app/src/models/cart_item_model.dart';
+import 'package:kitanda_app/app/src/models/orders_model.dart';
 import 'package:kitanda_app/app/src/models/user_model.dart';
 
 import '../models/item_model.dart';
@@ -91,3 +92,17 @@ UserModel user = UserModel(
     phone: '00 0 0000-0000',
     cpf: '000.000.000-00',
     password: '');
+
+List<OrdersModel> orders = [
+  OrdersModel(
+    id: 'a5jc4me8',
+    createdDateTime: DateTime.parse('2022-10-13 19:35:54.250'),
+    overdueDateTime: DateTime.parse('2022-10-13 20:35:54.250'),
+    status: 'pending_payment',
+    copyAndPaste: 'kbg6j39cm3',
+    items: [
+      CartItemModel(item: apple, quantity: 2),
+    ],
+    total: 11,
+  ),
+];
