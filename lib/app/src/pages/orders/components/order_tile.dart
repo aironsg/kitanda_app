@@ -97,7 +97,7 @@ class OrderTile extends StatelessWidget {
                   TextSpan(
                     //modificar esta linha
 
-                    text: '${utilsService.formatNumberCurrency(total)}',
+                    text: utilsService.formatNumberCurrency(total),
                     style: const TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.w500,

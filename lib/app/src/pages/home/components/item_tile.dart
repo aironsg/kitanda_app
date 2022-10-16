@@ -7,8 +7,15 @@ import 'package:kitanda_app/app/src/services/utils_service.dart';
 // ignore: must_be_immutable
 class ItemTile extends StatelessWidget {
   ItemModel item;
-  ItemTile({Key? key, required this.item}) : super(key: key);
+  final void Function(GlobalKey) cartAnimationMethod;
+  ItemTile({
+    Key? key,
+    required this.item,
+    required this.cartAnimationMethod,
+  }) : super(key: key);
+
   final UtilsService service = UtilsService();
+  final GlobalKey imageGk = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +47,13 @@ class ItemTile extends StatelessWidget {
                     child: Hero(
                       tag: item.imgUrl,
                       transitionOnUserGestures: true,
-                      child: Image.asset(item.imgUrl),
+                      child: Image.asset(
+                        item.imgUrl,
+                        key: imageGk,
+                      ),
                     ),
                   ),
-                  //name do Item
+                  //nome do Item
                   Text(
                     item.itemName,
                     style: TextStyle(
@@ -86,7 +96,8 @@ class ItemTile extends StatelessWidget {
           top: 4,
           right: 4,
           child: GestureDetector(
-            onTap: () => debugPrint('cliquei'),
+            //colocar a global key aqui
+            onTap: () => cartAnimationMethod(imageGk),
             child: Container(
               height: 40,
               width: 35,

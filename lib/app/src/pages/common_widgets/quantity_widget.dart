@@ -37,7 +37,7 @@ class QuantityWidget extends StatelessWidget {
         children: [
           //esta unidade de medida será mudada de acordo com item inserido
 
-          //Botão de Incremento
+          //Botão de decremento
           _QuantityButton(
             icon: !isRemoveble || quantity > 1
                 ? Icons.remove
@@ -62,7 +62,7 @@ class QuantityWidget extends StatelessWidget {
             ),
           ),
 
-          //Botão de decremento
+          //Botão de incremento
           _QuantityButton(
             icon: Icons.add,
             color: CustomColor.customSwatchColor,

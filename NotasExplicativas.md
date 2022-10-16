@@ -22,3 +22,5 @@ razão para isto, ficar mais facil de encontrar as funcionalidades do app, para 
  3- mask_text_input_formatter: RESPONSAVEL POR FAZER FORMATAÇÕES DE MASCARAS EM CAMPOS DE TEXTO
  4- badges: RESPONSAVEL POR COLOCAR EFEITOS EM ICONES
  5- intl: RESPONSAVEL POR FORMATAÇÕES DE VALORES E DATAS E LINGUAS
+ 6- add_to_cart_animation: RESPONSAVEL POR FAZER A ANIMAÇÃO DE LEVAR O ITEM PARA O CARRINHO
+ 7- qr_flutter: RESPONSAVEL POR CRIAÇÃO DE QR CODE

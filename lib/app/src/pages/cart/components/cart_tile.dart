@@ -48,7 +48,7 @@ class _CartTileState extends State<CartTile> {
               fontWeight: FontWeight.bold),
         ),
 
-        //Botão de acrescentar
+        //widget de acrescentar e dimunir
         trailing: QuantityWidget(
           item: widget.cartItem.item,
           result: (quantity) {

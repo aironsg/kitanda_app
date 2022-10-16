@@ -3,6 +3,7 @@ import 'package:kitanda_app/app/src/config/app_data.dart' as app_data;
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/models/cart_item_model.dart';
 import 'package:kitanda_app/app/src/pages/cart/components/cart_tile.dart';
+import 'package:kitanda_app/app/src/pages/common_widgets/payment_dialog.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
 class CartTab extends StatefulWidget {
@@ -18,6 +19,8 @@ class _CartTabState extends State<CartTab> {
   void removerItemCart(CartItemModel cartItem) {
     setState(() {
       app_data.cartItens.remove(cartItem);
+      utilsService.showToast(
+          message: '${cartItem.item.itemName} Removido do carrinho');
     });
   }
 
@@ -104,8 +107,20 @@ class _CartTabState extends State<CartTab> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      onPressed: () {
-                        showOrderConfirmation();
+                      onPressed: () async {
+                        var result = await showOrderConfirmation();
+                        if (result ?? false) {
+                          showDialog(
+                            context: context,
+                            builder: (_) {
+                              return PaymentDialog(
+                                  order: app_data.orders.first);
+                            },
+                          );
+                        } else {
+                          utilsService.showToast(
+                              message: 'Pedido não confirmado', isError: true);
+                        }
                       },
                       child: const Text(
                         'Finalizar Compra',
