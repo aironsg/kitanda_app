@@ -106,7 +106,7 @@ List<OrdersModel> orders = [
       CartItemModel(item: mango, quantity: 3),
       CartItemModel(item: grape, quantity: 5),
     ],
-    total: 11,
+    total: cartTotalPrice(),
   ),
 
   //Pedido 2
@@ -120,7 +120,7 @@ List<OrdersModel> orders = [
       CartItemModel(item: apple, quantity: 2),
       CartItemModel(item: grape, quantity: 5),
     ],
-    total: 11,
+    total: cartTotalPrice(),
   ),
 
   //Pedido 3
@@ -133,6 +133,16 @@ List<OrdersModel> orders = [
     items: [
       CartItemModel(item: kiwi, quantity: 15),
     ],
-    total: 35.5,
+    total: cartTotalPrice(),
   ),
 ];
+
+double cartTotalPrice() {
+  double total = 0;
+
+  for (var item in cartItens) {
+    total += item.totalPrice();
+  }
+
+  return total;
+}

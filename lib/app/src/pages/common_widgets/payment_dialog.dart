@@ -44,7 +44,7 @@ class PaymentDialog extends StatelessWidget {
 
           //total
           Text(
-            '${utilsService.formatNumberCurrency(order.total)}',
+            '${utilsService.formatNumberCurrency(order.cartTotalPrice(order.items))}',
             style: TextStyle(
               fontSize: 18.0,
               fontStyle: FontStyle.italic,

@@ -13,6 +13,7 @@ class OrderTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var total = order.cartTotalPrice(order.items);
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Theme(
@@ -96,7 +97,7 @@ class OrderTile extends StatelessWidget {
                   TextSpan(
                     //modificar esta linha
 
-                    text: '${utilsService.formatNumberCurrency(order.total)}',
+                    text: '${utilsService.formatNumberCurrency(total)}',
                     style: const TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.w500,

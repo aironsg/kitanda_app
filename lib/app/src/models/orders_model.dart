@@ -18,4 +18,14 @@ class OrdersModel {
     required this.copyAndPaste,
     required this.total,
   });
+
+  double cartTotalPrice(List<CartItemModel> items) {
+    double total = 0;
+
+    for (var item in items) {
+      total += item.totalPrice();
+    }
+
+    return total;
+  }
 }
