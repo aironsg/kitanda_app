@@ -97,12 +97,37 @@ List<OrdersModel> orders = [
   OrdersModel(
     id: 'a5jc4me8',
     createdDateTime: DateTime.parse('2022-10-13 19:35:54.250'),
-    overdueDateTime: DateTime.parse('2022-10-13 20:35:54.250'),
+    overdueDateTime: DateTime.parse('2022-10-16 20:35:54.250'),
+    status: 'paid',
+    copyAndPaste: 'kbg6j39cm3',
+    items: [
+      CartItemModel(item: apple, quantity: 2),
+      CartItemModel(item: mango, quantity: 3),
+      CartItemModel(item: grape, quantity: 5),
+    ],
+    total: 11,
+  ),
+  OrdersModel(
+    id: 'a5jcdfd2',
+    createdDateTime: DateTime.parse('2022-10-13 19:35:54.250'),
+    overdueDateTime: DateTime.parse('2022-10-15 20:35:54.250'),
     status: 'pending_payment',
     copyAndPaste: 'kbg6j39cm3',
     items: [
       CartItemModel(item: apple, quantity: 2),
+      CartItemModel(item: grape, quantity: 5),
     ],
     total: 11,
+  ),
+  OrdersModel(
+    id: 'jch5sm99s',
+    createdDateTime: DateTime.parse('2022-10-14 19:35:54.250'),
+    overdueDateTime: DateTime.parse('2022-10-14 20:35:54.250'),
+    status: 'refunded',
+    copyAndPaste: 'lgjii3a9m3',
+    items: [
+      CartItemModel(item: kiwi, quantity: 15),
+    ],
+    total: 35.5,
   ),
 ];

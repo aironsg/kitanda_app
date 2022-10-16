@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kitanda_app/app/src/config/app_data.dart' as app_data;
-import 'package:kitanda_app/app/src/pages/orders/order_tile.dart';
+import 'package:kitanda_app/app/src/pages/orders/components/order_tile.dart';
 
 class OrdersTab extends StatelessWidget {
   const OrdersTab({Key? key}) : super(key: key);
