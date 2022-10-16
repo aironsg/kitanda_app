@@ -94,11 +94,12 @@ UserModel user = UserModel(
     password: '');
 
 List<OrdersModel> orders = [
+  //Pedido 1
   OrdersModel(
     id: 'a5jc4me8',
-    createdDateTime: DateTime.parse('2022-10-13 19:35:54.250'),
-    overdueDateTime: DateTime.parse('2022-10-16 20:35:54.250'),
-    status: 'paid',
+    createdDateTime: DateTime.parse('2022-10-15 19:35:54.250'),
+    overdueDateTime: DateTime.parse('2022-10-20 20:35:54.250'),
+    status: 'pending_payment',
     copyAndPaste: 'kbg6j39cm3',
     items: [
       CartItemModel(item: apple, quantity: 2),
@@ -107,11 +108,13 @@ List<OrdersModel> orders = [
     ],
     total: 11,
   ),
+
+  //Pedido 2
   OrdersModel(
     id: 'a5jcdfd2',
     createdDateTime: DateTime.parse('2022-10-13 19:35:54.250'),
-    overdueDateTime: DateTime.parse('2022-10-15 20:35:54.250'),
-    status: 'pending_payment',
+    overdueDateTime: DateTime.parse('2022-10-20 20:35:54.250'),
+    status: 'paid',
     copyAndPaste: 'kbg6j39cm3',
     items: [
       CartItemModel(item: apple, quantity: 2),
@@ -119,6 +122,8 @@ List<OrdersModel> orders = [
     ],
     total: 11,
   ),
+
+  //Pedido 3
   OrdersModel(
     id: 'jch5sm99s',
     createdDateTime: DateTime.parse('2022-10-14 19:35:54.250'),

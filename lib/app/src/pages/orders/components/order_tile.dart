@@ -10,6 +10,7 @@ class OrderTile extends StatelessWidget {
   OrderTile({Key? key, required this.order}) : super(key: key);
 
   final UtilsService utilsService = UtilsService();
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -18,6 +19,7 @@ class OrderTile extends StatelessWidget {
         //Responsavel por tirar o efeito da morda do ExpansionTile
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
+          initiallyExpanded: order.status == 'pending_payment',
           //header do Expansion
           title: Column(
             mainAxisSize: MainAxisSize.min,
@@ -35,30 +37,40 @@ class OrderTile extends StatelessWidget {
             ],
           ),
           childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
+
           //Corpo do Expansion
           children: [
             //Inicio
-            SizedBox(
-              height: 170,
+
+            IntrinsicHeight(
+              //Descrição pedido
               child: Row(
                 children: [
                   Expanded(
                     flex: 3,
-                    child: ListView(
-                      children: order.items.map((orderItem) {
-                        //Descrição Pedidos
-                        return _OrderItemWidget(
-                          utilsService: utilsService,
-                          orderItem: orderItem,
-                        );
-                      }).toList(),
+                    child: SizedBox(
+                      height: 150,
+                      child: ListView(
+                        children: order.items.map((orderItem) {
+                          //Descrição Pedidos
+                          return _OrderItemWidget(
+                            utilsService: utilsService,
+                            orderItem: orderItem,
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
+
+                  //Divisão
                   VerticalDivider(
                     width: 6,
                     thickness: 2,
                     color: Colors.grey.shade400,
                   ),
+
+                  //Status
                   Expanded(
                     flex: 2,
                     child: OrderStatusWidgtes(
@@ -68,8 +80,52 @@ class OrderTile extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
             //Fim
+
+            //total
+            if (order.status == 'pending_payment') ...[
+              Text.rich(
+                TextSpan(
+                  children: [
+                    const TextSpan(
+                      text: 'Total:',
+                      style: TextStyle(
+                          fontSize: 24.0, fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(
+                      //modificar esta linha
+
+                      text: '${utilsService.formatNumberCurrency(order.total)}',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              //botão pagamento
+
+              SizedBox(
+                height: 50,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30))),
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.pix_outlined,
+                    color: Colors.white,
+                  ),
+                  label: Text(
+                    'Ver QR code Pix',
+                    style: TextStyle(color: Colors.white, fontSize: 18.0),
+                  ),
+                ),
+              ),
+            ],
           ],
         ),
       ),

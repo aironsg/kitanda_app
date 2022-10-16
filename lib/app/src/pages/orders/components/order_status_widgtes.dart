@@ -42,9 +42,15 @@ class OrderStatusWidgtes extends StatelessWidget {
             title: 'Pagamento Pix vencido',
             backgroundColor: Colors.red,
           )
-        ] else if (currentStatus == 2) ...[
-          const _StatusDot(isActive: true, title: 'Pagamento')
-        ]
+        ] else ...[
+          _StatusDot(isActive: currentStatus >= 2, title: 'Pagamanto'),
+          const _CustomDivider(),
+          _StatusDot(isActive: currentStatus >= 3, title: 'Preparando'),
+          const _CustomDivider(),
+          _StatusDot(isActive: currentStatus >= 4, title: 'enviado'),
+          const _CustomDivider(),
+          _StatusDot(isActive: currentStatus == 5, title: 'Entregue'),
+        ],
       ],
     );
   }
