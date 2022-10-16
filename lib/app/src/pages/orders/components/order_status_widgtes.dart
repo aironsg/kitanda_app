@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kitanda_app/app/src/config/all_status.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 
+// ignore: must_be_immutable
 class OrderStatusWidgtes extends StatelessWidget {
   OrderStatusWidgtes({
     Key? key,

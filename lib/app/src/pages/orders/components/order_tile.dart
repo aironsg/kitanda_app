@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/models/cart_item_model.dart';
 import 'package:kitanda_app/app/src/models/orders_model.dart';
+import 'package:kitanda_app/app/src/pages/common_widgets/payment_dialog.dart';
 import 'package:kitanda_app/app/src/pages/orders/components/order_status_widgtes.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
@@ -84,48 +84,56 @@ class OrderTile extends StatelessWidget {
             //Fim
 
             //total
-            if (order.status == 'pending_payment') ...[
-              Text.rich(
-                TextSpan(
-                  children: [
-                    const TextSpan(
-                      text: 'Total:',
-                      style: TextStyle(
-                          fontSize: 24.0, fontWeight: FontWeight.bold),
-                    ),
-                    TextSpan(
-                      //modificar esta linha
 
-                      text: '${utilsService.formatNumberCurrency(order.total)}',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w500,
-                      ),
+            Text.rich(
+              TextSpan(
+                children: [
+                  const TextSpan(
+                    text: 'Total:',
+                    style:
+                        TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(
+                    //modificar esta linha
+
+                    text: '${utilsService.formatNumberCurrency(order.total)}',
+                    style: const TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w500,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
+            ),
 
-              //botão pagamento
+            //botão pagamento
 
-              SizedBox(
+            Visibility(
+              visible: order.status == 'pending_payment',
+              child: SizedBox(
                 height: 50,
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30))),
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (_) {
+                          return PaymentDialog(order: order);
+                        });
+                  },
                   icon: const Icon(
                     Icons.pix_outlined,
                     color: Colors.white,
                   ),
-                  label: Text(
+                  label: const Text(
                     'Ver QR code Pix',
                     style: TextStyle(color: Colors.white, fontSize: 18.0),
                   ),
                 ),
               ),
-            ],
+            ),
           ],
         ),
       ),
