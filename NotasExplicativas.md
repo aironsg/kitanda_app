@@ -18,9 +18,12 @@ razão para isto, ficar mais facil de encontrar as funcionalidades do app, para 
 #Utilização de Packges extras
 
  1- get: RESPONSAVEL POR GERENCIAMENTO DE ROTAS E ESTADOS
- 2- animated_text_kit: RESPONSAVEL POR CRIAR ANIMAÇÕES DE TRANSIÇÕES DE TEXTO
- 3- mask_text_input_formatter: RESPONSAVEL POR FAZER FORMATAÇÕES DE MASCARAS EM CAMPOS DE TEXTO
+ 2- animated_text_kit: RESPONSAVEL POR CRIAR ANIMAÇÕES DE TRANSIÇÕES DE TEXTO(titulo do app)
+
+ 3- mask_text_input_formatter: RESPONSAVEL POR FAZER FORMATAÇÕES DE MASCARAS EM CAMPOS DE TEXTO(vede pagina de login e cadastro)
  4- badges: RESPONSAVEL POR COLOCAR EFEITOS EM ICONES
- 5- intl: RESPONSAVEL POR FORMATAÇÕES DE VALORES E DATAS E LINGUAS
+ 5- intl: RESPONSAVEL POR FORMATAÇÕES DE VALORES E DATAS E LINGUAS(vede arquivo utilService)
  6- add_to_cart_animation: RESPONSAVEL POR FAZER A ANIMAÇÃO DE LEVAR O ITEM PARA O CARRINHO
  7- qr_flutter: RESPONSAVEL POR CRIAÇÃO DE QR CODE
+ 8- flutter_launcher_icons: RESPONSAVEL POR COLOCAR ICONS NÃO PADRÕES NO APP (analisar arquivo pubspec.yaml) este package foi responsavel por colocar uma imagem como a logo padrão do app.
+ 9- shimmer: RESPONSAVEL POR EFEITO DE CARREGAMENTO DE WIDGETS. (vede pagina home)

@@ -2,14 +2,16 @@ import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:add_to_cart_animation/add_to_cart_icon.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kitanda_app/app/src/config/custom_color.dart';
+import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/config/app_data.dart' as app_data;
+import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/pages/cart/cart_tab.dart';
+import 'package:kitanda_app/app/src/pages/common_widgets/custom_shimmer.dart';
 import 'package:kitanda_app/app/src/pages/home/components/item_tile.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
+
+import '../common_widgets/app_name_widget.dart';
 import 'components/category.tile.dart';
-import 'package:get/get.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -20,6 +22,7 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   String selectedCategory = 'Frutas';
+  UtilsService utilsService = UtilsService();
 
   final GlobalKey<CartIconKey> globalKeyCartItems = GlobalKey<CartIconKey>();
   late Function(GlobalKey) runAddToCardAnimation;
@@ -28,13 +31,18 @@ class _HomeTabState extends State<HomeTab> {
     runAddToCardAnimation(gkImage);
   }
 
-  UtilsService utilsService = UtilsService();
-
+  bool isLoading = true;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    utilsService.showToast(message: 'Bem-Vindo');
+    Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        setState(() {
+          isLoading = false;
+        });
+      },
+    );
   }
 
   @override
@@ -77,28 +85,14 @@ class _HomeTabState extends State<HomeTab> {
         elevation: 0,
 
         //Titulo
-        title: Text.rich(
-          TextSpan(
-            style: const TextStyle(
-              fontSize: 30,
-            ),
-            children: [
-              TextSpan(
-                  text: 'Green',
-                  style: TextStyle(color: CustomColor.customSwatchColor)),
-              TextSpan(
-                  text: 'Grocer',
-                  style: TextStyle(color: CustomColor.customContrasctColor)),
-            ],
-          ),
-        ),
+        title: const AppNameWidget(),
       ),
       body: AddToCartAnimation(
         gkCart: globalKeyCartItems,
         previewDuration: const Duration(microseconds: 100),
         previewCurve: Curves.ease,
         receiveCreateAddToCardAnimationMethod: (addToCardAnimation) {
-          this.runAddToCardAnimation = addToCardAnimation;
+          runAddToCardAnimation = addToCardAnimation;
         },
         child: Column(
           children: [
@@ -131,46 +125,79 @@ class _HomeTabState extends State<HomeTab> {
 
             //categorias
             Container(
-              padding: const EdgeInsets.only(left: 25.0),
-              height: 40,
-              child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (_, index) {
-                    return CategoryTile(
-                      onPressed: () {
-                        setState(() {
-                          selectedCategory = app_data.categories[index];
-                        });
-                      }, //fim onde pressed
-                      category: app_data.categories[index],
-                      isSelected:
-                          app_data.categories[index] == selectedCategory,
-                    );
-                  },
-                  separatorBuilder: (_, index) => const SizedBox(width: 10.0),
-                  itemCount: app_data.categories.length),
-            ),
+                padding: const EdgeInsets.only(left: 25.0),
+                height: 40,
+                child: !isLoading
+                    ? ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (_, index) {
+                          return CategoryTile(
+                            onPressed: () {
+                              setState(() {
+                                selectedCategory = app_data.categories[index];
+                              });
+                            }, //fim onpressed
+                            category: app_data.categories[index],
+                            isSelected:
+                                app_data.categories[index] == selectedCategory,
+                          );
+                        },
+                        separatorBuilder: (_, index) =>
+                            const SizedBox(width: 10.0),
+                        itemCount: app_data.categories.length)
+                    : ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: List.generate(
+                          app_data.categories.length,
+                          (index) => Container(
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(right: 10),
+                            child: CustomShimmer(
+                                borderRadius: BorderRadius.circular(10),
+                                height: 20,
+                                width: 60),
+                          ),
+                        ),
+                      )),
 
             //grid
 
             Expanded(
-              child: GridView.builder(
-                physics:
-                    const BouncingScrollPhysics(), //responsavel por pausar o efeito de scroll
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 9 / 11.5),
-                itemCount: app_data.items.length,
-                itemBuilder: (_, index) {
-                  return ItemTile(
-                    item: app_data.items[index],
-                    cartAnimationMethod: itemSelectedCartAnimation,
-                  );
-                },
-              ),
+              child: !isLoading
+                  ? GridView.builder(
+                      physics:
+                          const BouncingScrollPhysics(), //responsavel por pausar o efeito de scroll
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              childAspectRatio: 9 / 11.5),
+                      itemCount: app_data.items.length,
+                      itemBuilder: (_, index) {
+                        return ItemTile(
+                          item: app_data.items[index],
+                          cartAnimationMethod: itemSelectedCartAnimation,
+                        );
+                      },
+                    )
+                  : GridView.count(
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: 9 / 11.5,
+                      children: List.generate(
+                        app_data.items.length,
+                        (index) => CustomShimmer(
+                          borderRadius: BorderRadius.circular(20),
+                          height: double.infinity,
+                          width: double.infinity,
+                        ),
+                      ),
+                    ),
             ),
           ],
         ),

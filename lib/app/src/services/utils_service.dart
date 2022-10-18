@@ -20,7 +20,7 @@ class UtilsService {
   void showToast({required message, bool isError = false}) {
     Fluttertoast.showToast(
       msg: message,
-      toastLength: Toast.LENGTH_SHORT,
+      toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.CENTER,
       timeInSecForIosWeb: 3,
       backgroundColor: isError ? Colors.red : Colors.white,

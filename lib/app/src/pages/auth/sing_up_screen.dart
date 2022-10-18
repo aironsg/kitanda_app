@@ -43,7 +43,7 @@ class SingUpScreen extends StatelessWidget {
                               color: Colors.white,
                             ),
                             onPressed: (() {
-                              Get.toNamed('/');
+                              Get.toNamed('/singIn');
                             }),
                           ),
                         ),

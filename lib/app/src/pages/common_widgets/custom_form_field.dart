@@ -11,17 +11,22 @@ class CustomFormField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final String? initialValue;
   final bool readOnly;
-  const CustomFormField({
-    Key? key,
-    required this.inputType,
-    required this.label,
-    required this.hint,
-    required this.icon,
-    this.isSecret = false,
-    this.inputFormatters, //atributo opcional
-    this.initialValue,
-    this.readOnly = false,
-  }) : super(key: key);
+  final String? Function(String?)? validator;
+  final TextEditingController? controller;
+
+  const CustomFormField(
+      {Key? key,
+      required this.inputType,
+      required this.label,
+      required this.hint,
+      required this.icon,
+      this.isSecret = false,
+      this.inputFormatters, //atributo opcional
+      this.initialValue,
+      this.readOnly = false,
+      this.validator,
+      this.controller})
+      : super(key: key);
 
   @override
   State<CustomFormField> createState() => _CustomFormFieldState();
@@ -41,6 +46,8 @@ class _CustomFormFieldState extends State<CustomFormField> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
       child: TextFormField(
+        controller: widget.controller,
+        validator: widget.validator,
         readOnly: widget.readOnly,
         initialValue: widget.initialValue,
         inputFormatters: widget.inputFormatters,
