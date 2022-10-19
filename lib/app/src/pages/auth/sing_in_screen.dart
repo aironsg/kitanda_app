@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kitanda_app/app/src/pages/auth/controller/auth_controller.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/app_name_widget.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/custom_form_field.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
@@ -128,34 +129,46 @@ class SingInScreen extends StatelessWidget {
                       //Botão Entrar
                       SizedBox(
                         height: 50.0,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              elevation: 3,
-                              shape: RoundedRectangleBorder(
+                        child: GetX<AuthController>(
+                          builder: (authController) {
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(18),
                               )),
-                          onPressed: () {
-                            //logica de token
-                            if (_formKey.currentState!.validate()) {
-                              String email = _emailEC.text;
-                              String password = _passwordEC.text;
-                              if (email == emailDefault &&
-                                  password == passwordDefault) {
-                                Get.offNamed(PageRoutes.homeRouter);
-                                //depois colocar uma logica de bem vindo ou recursado
-                                utilsService.showToast(message: 'Bem-Vindo');
-                              } else {
-                                utilsService.showToast(
-                                    message: 'Email ou Senha invalido',
-                                    isError: true);
-                              }
-                            }
+                              onPressed: authController.isLoading.value
+                                  ? null
+                                  : () {
+                                      //logica de token
+                                      FocusScope.of(context).unfocus();
+                                      if (_formKey.currentState!.validate()) {
+                                        String email = _emailEC.text;
+                                        String password = _passwordEC.text;
+                                        authController.sinIn(
+                                            email: email, password: password);
+                                        if (email == emailDefault &&
+                                            password == passwordDefault) {
+                                          Get.offNamed(PageRoutes.homeRouter);
+                                          //depois colocar uma logica de bem vindo ou recursado
+                                          utilsService.showToast(
+                                              message: 'Bem-Vindo');
+                                        } else {
+                                          utilsService.showToast(
+                                              message:
+                                                  'Email ou Senha invalido',
+                                              isError: true);
+                                        }
+                                      }
+                                    },
+                              child: authController.isLoading.value
+                                  ? const CircularProgressIndicator()
+                                  : const Text(
+                                      'Entrar',
+                                      style: TextStyle(
+                                          fontSize: 16.0, color: Colors.white),
+                                    ),
+                            );
                           },
-                          child: const Text(
-                            'Entrar',
-                            style:
-                                TextStyle(fontSize: 18.0, color: Colors.white),
-                          ),
                         ),
                       ),
 
