@@ -18,7 +18,7 @@ abstract class AppPages {
 }
 
 abstract class PageRoutes {
-  static const String signInRouter = '/signgn';
+  static const String signInRouter = '/signin';
   static const String splashRouter = '/splash';
   static const String signUpRouter = '/signUp';
   static const String homeRouter = '/home';

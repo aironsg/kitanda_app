@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
-import 'package:kitanda_app/app/src/getx_controllers/getx_app_controllers.dart';
 import 'package:kitanda_app/app/src/pages_routers/app_pages.dart';
+
+import 'app/src/getx_controllers/getx_app_controllers.dart';
 
 Future<void> main() async {
   //injeção de depedencias

@@ -17,8 +17,9 @@ class SignInScreen extends StatelessWidget {
   final _passwordEC = TextEditingController();
 
   //dados teste de login
-  final String emailDefault = 'airon@email.com';
-  final String passwordDefault = '12345678';
+  final String emailDefault = 'greengrocerteste@gmail.com';
+
+  final String passwordDefault = 'senha123';
 
   UtilsService utilsService = UtilsService();
   @override
@@ -144,7 +145,7 @@ class SignInScreen extends StatelessWidget {
                                       if (_formKey.currentState!.validate()) {
                                         String email = _emailEC.text;
                                         String password = _passwordEC.text;
-                                        await authController.sinIn(
+                                        await authController.signIn(
                                             email: email, password: password);
                                         if (email == emailDefault &&
                                             password == passwordDefault) {
@@ -155,7 +156,7 @@ class SignInScreen extends StatelessWidget {
                                         } else {
                                           utilsService.showToast(
                                               message:
-                                                  'Email ou Senha invalido',
+                                                  'Email ou Senha inválido',
                                               isError: true);
                                         }
                                       }
