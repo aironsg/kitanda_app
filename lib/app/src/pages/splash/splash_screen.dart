@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     Future.delayed(const Duration(milliseconds: 1500),
-        () => Get.offNamed(PageRoutes.singInRouter));
+        () => Get.offNamed(PageRoutes.signInRouter));
   }
 
   @override

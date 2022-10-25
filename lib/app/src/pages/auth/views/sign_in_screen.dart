@@ -9,8 +9,8 @@ import 'package:kitanda_app/app/src/pages_routers/app_pages.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
 // ignore: must_be_immutable
-class SingInScreen extends StatelessWidget {
-  SingInScreen({Key? key}) : super(key: key);
+class SignInScreen extends StatelessWidget {
+  SignInScreen({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
   final _emailEC = TextEditingController();
@@ -138,13 +138,13 @@ class SingInScreen extends StatelessWidget {
                               )),
                               onPressed: authController.isLoading.value
                                   ? null
-                                  : () {
+                                  : () async {
                                       //logica de token
                                       FocusScope.of(context).unfocus();
                                       if (_formKey.currentState!.validate()) {
                                         String email = _emailEC.text;
                                         String password = _passwordEC.text;
-                                        authController.sinIn(
+                                        await authController.sinIn(
                                             email: email, password: password);
                                         if (email == emailDefault &&
                                             password == passwordDefault) {
@@ -231,7 +231,7 @@ class SingInScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(18.0),
                               )),
                           onPressed: () {
-                            Get.toNamed(PageRoutes.singUpRouter);
+                            Get.toNamed(PageRoutes.signUpRouter);
                           },
                           child: Text(
                             'Criar Conta',

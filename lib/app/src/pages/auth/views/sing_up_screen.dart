@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 // ignore: must_be_immutable
-class SingUpScreen extends StatelessWidget {
-  SingUpScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatelessWidget {
+  SignUpScreen({Key? key}) : super(key: key);
 
   var cpfFormatter = MaskTextInputFormatter(
     mask: '###.###.###-##',
@@ -43,7 +43,7 @@ class SingUpScreen extends StatelessWidget {
                               color: Colors.white,
                             ),
                             onPressed: (() {
-                              Get.toNamed('/singIn');
+                              Get.toNamed('/signIn');
                             }),
                           ),
                         ),
