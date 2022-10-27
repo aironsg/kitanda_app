@@ -27,3 +27,5 @@ razão para isto, ficar mais facil de encontrar as funcionalidades do app, para 
  7- qr_flutter: RESPONSAVEL POR CRIAÇÃO DE QR CODE
  8- flutter_launcher_icons: RESPONSAVEL POR COLOCAR ICONS NÃO PADRÕES NO APP (analisar arquivo pubspec.yaml) este package foi responsavel por colocar uma imagem como a logo padrão do app.
  9- shimmer: RESPONSAVEL POR EFEITO DE CARREGAMENTO DE WIDGETS. (vede pagina home)
+
+ anotar sobre o json_serializible, json_anotation e build_runner

@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/pages/auth/repository/auth_repository.dart';
+import 'package:kitanda_app/app/src/pages/auth/result/auth_result.dart';
 
 class AuthController extends GetxController {
   RxBool isLoading = false.obs;
@@ -12,9 +14,16 @@ class AuthController extends GetxController {
 
     isLoading.value = true;
 
-    await authRepository.signIn(email: email, password: password);
+    AuthResult result =
+        await authRepository.signIn(email: email, password: password);
     //await Future.delayed(const Duration(seconds: 2));
 
     isLoading.value = false;
+
+    result.when(success: (user) {
+      debugPrint(user.name);
+    }, error: (message) {
+      debugPrint(message);
+    });
   }
 }

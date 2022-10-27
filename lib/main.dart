@@ -17,15 +17,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Kitanda App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          //esse atributo altera as cores padrão do app
-          primarySwatch: CustomColor.customSwatchColor,
-          scaffoldBackgroundColor: Colors.grey.withAlpha(50)),
-      initialRoute: PageRoutes.splashRouter,
-      getPages: AppPages.pages,
+    return GestureDetector(
+      //responsavel por fechar teclado, quando clicado fora
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: GetMaterialApp(
+        title: 'Kitanda App',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            //esse atributo altera as cores padrão do app
+            primarySwatch: CustomColor.customSwatchColor,
+            scaffoldBackgroundColor: Colors.grey.withAlpha(50)),
+        initialRoute: PageRoutes.splashRouter,
+        getPages: AppPages.pages,
+      ),
     );
   }
 }
