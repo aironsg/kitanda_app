@@ -16,11 +16,6 @@ class SignInScreen extends StatelessWidget {
   final _emailEC = TextEditingController();
   final _passwordEC = TextEditingController();
 
-  //dados teste de login
-  final String emailDefault = 'greengrocerteste@gmail.com';
-
-  final String passwordDefault = 'senha123';
-
   UtilsService utilsService = UtilsService();
   @override
   Widget build(BuildContext context) {
@@ -147,18 +142,6 @@ class SignInScreen extends StatelessWidget {
                                         String password = _passwordEC.text;
                                         await authController.signIn(
                                             email: email, password: password);
-                                        if (email == emailDefault &&
-                                            password == passwordDefault) {
-                                          Get.offNamed(PageRoutes.homeRouter);
-                                          //depois colocar uma logica de bem vindo ou recursado
-                                          utilsService.showToast(
-                                              message: 'Bem-Vindo');
-                                        } else {
-                                          utilsService.showToast(
-                                              message:
-                                                  'Email ou Senha inválido',
-                                              isError: true);
-                                        }
                                       }
                                     },
                               child: authController.isLoading.value
