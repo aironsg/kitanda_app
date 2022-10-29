@@ -28,7 +28,7 @@ class AuthRepository {
   }
 
   //validação token
-  Future<AuthResult> validateToken(String, token) async {
+  Future<AuthResult> validateToken(String token) async {
     final result = await _httpManager.restRequest(
       url: EndPoints.validateToken,
       method: HttpMethod.post,

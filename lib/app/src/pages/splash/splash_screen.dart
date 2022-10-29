@@ -1,24 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/app_name_widget.dart';
-import 'package:get/get.dart';
-import 'package:kitanda_app/app/src/pages_routers/app_pages.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-
-    Future.delayed(const Duration(milliseconds: 1500),
-        () => Get.offNamed(PageRoutes.signInRouter));
-  }
 
   @override
   Widget build(BuildContext context) {

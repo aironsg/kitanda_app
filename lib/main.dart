@@ -6,6 +6,7 @@ import 'package:kitanda_app/app/src/pages_routers/app_pages.dart';
 import 'app/src/getx_controllers/getx_app_controllers.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   //injeção de depedencias
   GetxAppControllers().initService();
 
