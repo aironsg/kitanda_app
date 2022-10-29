@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
+import 'package:kitanda_app/app/src/pages/auth/controller/auth_controller.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/custom_form_field.dart';
 import 'package:kitanda_app/app/src/config/app_data.dart' as app_data;
 
@@ -11,6 +13,8 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
+  final authController = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +22,9 @@ class _ProfileTabState extends State<ProfileTab> {
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                authController.signOut();
+              },
               icon: const Icon(
                 Icons.logout_rounded,
                 color: Colors.white,

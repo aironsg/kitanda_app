@@ -7,6 +7,7 @@ import 'package:kitanda_app/app/src/pages/common_widgets/custom_form_field.dart'
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/pages_routers/app_pages.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
+import 'package:kitanda_app/app/src/services/validators.dart' as validator;
 
 // ignore: must_be_immutable
 class SignInScreen extends StatelessWidget {
@@ -90,16 +91,7 @@ class SignInScreen extends StatelessWidget {
                         label: 'Email',
                         hint: 'fulano@email.com',
                         icon: const Icon(Icons.email_outlined),
-                        validator: (email) {
-                          if (email == null || email.isEmpty) {
-                            return 'Digite seu email';
-                          }
-
-                          if (!email.isEmail) {
-                            return 'Digite um email valido!';
-                          }
-                          return null;
-                        }, //prefixx
+                        validator: validator.emailValidator,
                       ),
 
                       //password
@@ -110,16 +102,7 @@ class SignInScreen extends StatelessWidget {
                         hint: 'password forte',
                         icon: const Icon(Icons.lock_outline), //prefixx
                         isSecret: true,
-                        validator: (password) {
-                          if (password == null || password.isEmpty) {
-                            return 'Digite sua senha';
-                          }
-
-                          if (password.length <= 7) {
-                            return 'Senha incompativel, minino de 8 caracteres';
-                          }
-                          return null;
-                        },
+                        validator: validator.passwordValidator,
                       ),
 
                       //Botão Entrar

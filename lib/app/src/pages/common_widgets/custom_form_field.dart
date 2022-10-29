@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 class CustomFormField extends StatefulWidget {
   //este atributo sera importante para o novo usuario
-  final TextInputType inputType;
+  final TextInputType? inputType;
   final String label;
   final String hint;
   final Icon icon;
@@ -12,21 +12,25 @@ class CustomFormField extends StatefulWidget {
   final String? initialValue;
   final bool readOnly;
   final String? Function(String?)? validator;
+  final void Function(String?)? onSaved;
   final TextEditingController? controller;
+  final GlobalKey<FormFieldState>? formFieldkey;
 
-  const CustomFormField(
-      {Key? key,
-      required this.inputType,
-      required this.label,
-      required this.hint,
-      required this.icon,
-      this.isSecret = false,
-      this.inputFormatters, //atributo opcional
-      this.initialValue,
-      this.readOnly = false,
-      this.validator,
-      this.controller})
-      : super(key: key);
+  const CustomFormField({
+    Key? key,
+    this.inputType,
+    required this.label,
+    required this.hint,
+    required this.icon,
+    this.isSecret = false,
+    this.inputFormatters, //atributo opcional
+    this.initialValue,
+    this.readOnly = false,
+    this.validator,
+    this.onSaved,
+    this.controller,
+    this.formFieldkey,
+  }) : super(key: key);
 
   @override
   State<CustomFormField> createState() => _CustomFormFieldState();
@@ -46,8 +50,10 @@ class _CustomFormFieldState extends State<CustomFormField> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
       child: TextFormField(
+        key: widget.formFieldkey,
         controller: widget.controller,
         validator: widget.validator,
+        onSaved: widget.onSaved,
         readOnly: widget.readOnly,
         initialValue: widget.initialValue,
         inputFormatters: widget.inputFormatters,

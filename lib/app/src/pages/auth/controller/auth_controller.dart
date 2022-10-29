@@ -68,4 +68,20 @@ class AuthController extends GetxController {
     utilService.deleteLocalData(key: Storagekeys.token);
     Get.offNamed(PageRoutes.signInRouter);
   }
+
+  Future<void> signUp() async {
+    isLoading.value = true;
+    AuthResult result = await authRepository.signUp(user);
+    isLoading.value = false;
+
+    result.when(
+      success: (user) {
+        this.user = user;
+        saveTokenAndProceedToHome();
+      },
+      error: (message) {
+        utilService.showToast(message: message, isError: true);
+      },
+    );
+  }
 }

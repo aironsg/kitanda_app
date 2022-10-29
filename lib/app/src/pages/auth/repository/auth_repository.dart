@@ -1,11 +1,19 @@
 import 'package:kitanda_app/app/src/constants/endpoints.dart';
 import 'package:kitanda_app/app/src/models/user_model.dart';
-import 'package:kitanda_app/app/src/pages/auth/errors/auth_error.dart';
 import 'package:kitanda_app/app/src/pages/auth/result/auth_result.dart';
 import 'package:kitanda_app/app/src/services/http_magager.dart';
 
 class AuthRepository {
   final HttpManager _httpManager = HttpManager();
+
+  AuthResult handleUserOuError(Map<dynamic, dynamic> result) {
+    if (result['result'] != null) {
+      final user = UserModel.fromJson(result['result']);
+      return AuthResult.success(user);
+    } else {
+      return AuthResult.error(result['error']);
+    }
+  }
 
   //Autenticação
   Future<AuthResult> signIn(
@@ -19,12 +27,7 @@ class AuthRepository {
       },
     );
 
-    if (result['result'] != null) {
-      final user = UserModel.fromJson(result['result']);
-      return AuthResult.success(user);
-    } else {
-      return AuthResult.error(AuthError.messageError(result['error']));
-    }
+    return handleUserOuError(result);
   }
 
   //validação token
@@ -35,11 +38,16 @@ class AuthRepository {
       hearders: {'X-Parse-Session-Token': token},
     );
 
-    if (result['result'] != null) {
-      final user = UserModel.fromJson(result['result']);
-      return AuthResult.success(user);
-    } else {
-      return AuthResult.error(result['error']);
-    }
+    return handleUserOuError(result);
+  }
+
+  Future<AuthResult> signUp(UserModel user) async {
+    final result = await _httpManager.restRequest(
+      url: EndPoints.signup,
+      method: HttpMethod.post,
+      body: user.toJson(),
+    );
+
+    return handleUserOuError(result);
   }
 }
