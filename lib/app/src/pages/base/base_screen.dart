@@ -24,11 +24,11 @@ class _BaseScreenState extends State<BaseScreen> {
         physics:
             const NeverScrollableScrollPhysics(), //responsavel por travar o scrool de toque na tela
         controller: pageController,
-        children: const [
+        children: [
           HomeTab(),
-          CartTab(),
-          OrdersTab(),
-          ProfileTab(),
+          const CartTab(),
+          const OrdersTab(),
+          const ProfileTab(),
         ],
       ),
 
