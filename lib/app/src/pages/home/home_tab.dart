@@ -7,11 +7,11 @@ import 'package:kitanda_app/app/src/config/app_data.dart' as app_data;
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/pages/cart/cart_tab.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/custom_shimmer.dart';
-import 'package:kitanda_app/app/src/pages/home/components/item_tile.dart';
+import 'package:kitanda_app/app/src/pages/home/views/components/item_tile.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
 import '../common_widgets/app_name_widget.dart';
-import 'components/category.tile.dart';
+import 'views/components/category.tile.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -35,6 +35,7 @@ class _HomeTabState extends State<HomeTab> {
   @override
   void initState() {
     super.initState();
+
     Future.delayed(
       const Duration(seconds: 2),
       () {

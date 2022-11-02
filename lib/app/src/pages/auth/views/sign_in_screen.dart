@@ -5,6 +5,7 @@ import 'package:kitanda_app/app/src/pages/auth/controller/auth_controller.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/app_name_widget.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/custom_form_field.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
+import 'package:kitanda_app/app/src/pages/common_widgets/forgot_password_dialog.dart';
 import 'package:kitanda_app/app/src/pages_routers/app_pages.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 import 'package:kitanda_app/app/src/services/validators.dart' as validator;
@@ -143,7 +144,21 @@ class SignInScreen extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final bool? result = await showDialog(
+                              context: context,
+                              builder: (_) {
+                                return ForgotPasswordDialog(
+                                    email: _emailEC.text);
+                              },
+                            );
+
+                            if (result ?? false) {
+                              utilsService.showToast(
+                                  message:
+                                      'Um Link de confirmação foi enviado para seu email');
+                            }
+                          },
                           child: Text(
                             'Esqueci a password',
                             style: TextStyle(

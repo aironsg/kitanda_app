@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:kitanda_app/app/src/pages/auth/controller/auth_controller.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/custom_form_field.dart';
 import 'package:kitanda_app/app/src/services/validators.dart';
 
 class ForgotPasswordDialog extends StatelessWidget {
-  final emailController = TextEditingController();
+  final _emailController = TextEditingController();
 
   ForgotPasswordDialog({
     required String email,
     Key? key,
   }) : super(key: key) {
-    emailController.text = email;
+    _emailController.text = email;
   }
 
-  final formFieldKey = GlobalKey<FormFieldState>();
+  final _formFieldKey = GlobalKey<FormFieldState>();
+
+  final authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +61,9 @@ class ForgotPasswordDialog extends StatelessWidget {
                 ),
 
                 CustomFormField(
-                  formFieldkey: formFieldKey,
+                  formFieldkey: _formFieldKey,
                   validator: emailValidator,
-                  controller: emailController,
+                  controller: _emailController,
                   label: 'Email',
                   hint: 'fulano@email.com',
                   icon: const Icon(Icons.email),
@@ -78,7 +82,10 @@ class ForgotPasswordDialog extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    formFieldKey.currentState!.validate();
+                    if (_formFieldKey.currentState!.validate()) {
+                      authController.resetPassword(_emailController.text);
+                      Get.back(result: true);
+                    }
                   },
                   child: const Text(
                     'Recuperar',
