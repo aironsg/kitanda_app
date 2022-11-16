@@ -78,14 +78,6 @@ List<CartItemModel> cartItens = [
   CartItemModel(item: kiwi, quantity: 1),
 ];
 
-List<String> categories = [
-  'Frutas',
-  'Verduras',
-  'Grãos',
-  'Carnes',
-  'Temperos',
-];
-
 UserModel user = UserModel(
     name: 'Airon',
     email: 'airon@email.com',

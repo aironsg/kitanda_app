@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/models/category_model.dart';
+import 'package:kitanda_app/app/src/models/item_model.dart';
 import 'package:kitanda_app/app/src/pages/home/repository/home_repository.dart';
 import 'package:kitanda_app/app/src/pages/home/result/home_result.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
@@ -19,6 +20,7 @@ class HomeController extends GetxController {
   void selectedCategory(CategoryModel category) {
     currentCategory = category;
     update();
+    getAllProducts();
   }
 
   @override
@@ -43,5 +45,25 @@ class HomeController extends GetxController {
         utilsService.showToast(message: message, isError: true);
       },
     );
+  }
+
+  Future<void> getAllProducts() async {
+    setLoading(true);
+
+    Map<String, dynamic> body = {
+      "page": 0,
+      "title": null,
+      "categoryId": "5mjkt5ERRo",
+      "itemsPerPage": 6
+    };
+
+    HomeResult<ItemModel> result = await homeRepository.getAllProducts(body);
+    setLoading(false);
+
+    result.when(success: (data) {
+      print(data);
+    }, error: (message) {
+      utilsService.showToast(message: message, isError: true);
+    });
   }
 }

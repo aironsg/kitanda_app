@@ -132,7 +132,7 @@ class HomeTab extends StatelessWidget {
                       : ListView(
                           scrollDirection: Axis.horizontal,
                           children: List.generate(
-                            app_data.categories.length,
+                            controller.allCategories.length,
                             (index) => Container(
                               alignment: Alignment.center,
                               margin: const EdgeInsets.only(right: 10),

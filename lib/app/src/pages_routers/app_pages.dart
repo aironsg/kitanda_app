@@ -28,7 +28,10 @@ abstract class AppPages {
       page: () => const CartTab(),
     ),
     //Orders
-    GetPage(name: PageRoutes.orderRouter, page: () => const OrdersTab())
+
+    GetPage(name: PageRoutes.orderRouter, page: () => const OrdersTab()),
+
+    //GetAllCategorys
   ];
 }
 
