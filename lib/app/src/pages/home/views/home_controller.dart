@@ -5,21 +5,36 @@ import 'package:kitanda_app/app/src/pages/home/repository/home_repository.dart';
 import 'package:kitanda_app/app/src/pages/home/result/home_result.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
+const int itemsPerPage = 6;
+
 class HomeController extends GetxController {
   HomeRepository homeRepository = HomeRepository();
-  bool isLoading = false;
+  bool isCategoryLoading = false;
+  bool isProductLoading = true;
   UtilsService utilsService = UtilsService();
   List<CategoryModel> allCategories = [];
   CategoryModel? currentCategory;
+  List<ItemModel> get allProducts => currentCategory?.items ?? [];
+  bool get isLastPage {
+    if (currentCategory!.items.length < itemsPerPage) return true;
 
-  void setLoading(bool value) {
-    isLoading = value;
+    return currentCategory!.pagination * itemsPerPage > allProducts.length;
+  }
+
+  void setLoading(bool value, {bool isProduct = false}) {
+    if (!isProduct) {
+      isCategoryLoading = value;
+    } else {
+      isProductLoading = value;
+    }
     update();
   }
 
   void selectedCategory(CategoryModel category) {
     currentCategory = category;
     update();
+
+    if (currentCategory!.items.isNotEmpty) return;
     getAllProducts();
   }
 
@@ -47,21 +62,27 @@ class HomeController extends GetxController {
     );
   }
 
-  Future<void> getAllProducts() async {
-    setLoading(true);
+  void loadingMoreProducts() {
+    currentCategory!.pagination++;
+    getAllProducts(canLoad: false);
+  }
+
+  Future<void> getAllProducts({bool canLoad = false}) async {
+    if (canLoad) {
+      setLoading(true, isProduct: true);
+    }
 
     Map<String, dynamic> body = {
-      "page": 0,
-      "title": null,
-      "categoryId": "5mjkt5ERRo",
-      "itemsPerPage": 6
+      'page': currentCategory!.pagination,
+      'categoryId': currentCategory!.id,
+      'itemsPerPage': itemsPerPage,
     };
 
     HomeResult<ItemModel> result = await homeRepository.getAllProducts(body);
-    setLoading(false);
+    setLoading(false, isProduct: true);
 
     result.when(success: (data) {
-      print(data);
+      currentCategory!.items.addAll(data);
     }, error: (message) {
       utilsService.showToast(message: message, isError: true);
     });
