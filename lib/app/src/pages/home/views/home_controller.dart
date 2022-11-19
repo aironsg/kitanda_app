@@ -14,6 +14,7 @@ class HomeController extends GetxController {
   UtilsService utilsService = UtilsService();
   List<CategoryModel> allCategories = [];
   CategoryModel? currentCategory;
+  RxString searchTitle = ''.obs;
   List<ItemModel> get allProducts => currentCategory?.items ?? [];
   bool get isLastPage {
     if (currentCategory!.items.length < itemsPerPage) return true;
@@ -42,6 +43,10 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     getAllCategories();
+
+    debounce(searchTitle, (_) {
+      update();
+    }, time: const Duration(milliseconds: 600));
   }
 
   Future<void> getAllCategories() async {

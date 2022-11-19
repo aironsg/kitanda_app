@@ -20,6 +20,8 @@ class HomeTab extends StatelessWidget {
 
   UtilsService utilsService = UtilsService();
 
+  final searchController = TextEditingController();
+
   final GlobalKey<CartIconKey> globalKeyCartItems = GlobalKey<CartIconKey>();
   late Function(GlobalKey) runAddToCardAnimation;
 
@@ -79,30 +81,54 @@ class HomeTab extends StatelessWidget {
         child: Column(
           children: [
             //Campo de Pesquisa
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 15, horizontal: 20.0),
-              child: TextFormField(
-                style: TextStyle(
-                  color: CustomColor.customSwatchColor,
-                ),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  isDense: true,
-                  hintText: 'Pesquise aqui',
-                  hintStyle:
-                      TextStyle(color: Colors.grey.shade400, fontSize: 14),
-                  prefixIcon: Icon(
-                    Icons.search_outlined,
-                    color: CustomColor.customContrasctColor,
-                    size: 21,
+            GetBuilder<HomeController>(
+              init: HomeController(),
+              initState: (controller) {},
+              builder: (controller) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 15, horizontal: 20.0),
+                  child: TextFormField(
+                    controller: searchController,
+                    onChanged: (value) {
+                      controller.searchTitle.value = value;
+                    },
+                    style: TextStyle(
+                      color: CustomColor.customSwatchColor,
+                    ),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      isDense: true,
+                      hintText: 'Pesquise aqui',
+                      hintStyle:
+                          TextStyle(color: Colors.grey.shade400, fontSize: 14),
+                      prefixIcon: Icon(
+                        Icons.search_outlined,
+                        color: CustomColor.customContrasctColor,
+                        size: 21,
+                      ),
+                      suffixIcon: controller.searchTitle.value.isNotEmpty
+                          ? IconButton(
+                              onPressed: () {
+                                searchController.clear();
+                                controller.searchTitle.value = '';
+                                FocusScope.of(context).unfocus();
+                              },
+                              icon: Icon(
+                                Icons.close,
+                                color: CustomColor.customContrasctColor,
+                                size: 21,
+                              ),
+                            )
+                          : null,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(50)),
+                    ),
                   ),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(50)),
-                ),
-              ),
+                );
+              },
             ),
 
             //categorias
