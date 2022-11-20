@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:kitanda_app/app/src/config/custom_color.dart';
-import 'package:kitanda_app/app/src/pages/cart/cart_tab.dart';
+import 'package:kitanda_app/app/src/pages/cart/views/cart_tab.dart';
 import 'package:kitanda_app/app/src/pages/home/home_tab.dart';
 import 'package:kitanda_app/app/src/pages/orders/orders_tab.dart';
 import 'package:kitanda_app/app/src/pages/profile/profile_tab.dart';
+
+import 'controller/navigation_controller.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
@@ -14,8 +17,8 @@ class BaseScreen extends StatefulWidget {
 }
 
 class _BaseScreenState extends State<BaseScreen> {
-  int currentIndex = 0;
-  final pageController = PageController();
+  final navigationController = Get.find<NavigationController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +26,7 @@ class _BaseScreenState extends State<BaseScreen> {
       body: PageView(
         physics:
             const NeverScrollableScrollPhysics(), //responsavel por travar o scrool de toque na tela
-        controller: pageController,
+        controller: navigationController.pageController,
         children: [
           HomeTab(),
           const CartTab(),
@@ -33,31 +36,26 @@ class _BaseScreenState extends State<BaseScreen> {
       ),
 
       //bottom Navigation Bar
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: currentIndex,
-          onTap: (index) {
-            setState(() {
-              currentIndex = index;
-              pageController.animateToPage(
-                index,
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOut,
-              );
-            });
-          },
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: CustomColor.customSwatchColor,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white.withAlpha(100),
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined), label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart_outlined), label: 'Carrinho'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.list_alt), label: 'Pedidos'),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
-          ]),
+      bottomNavigationBar: Obx(() => BottomNavigationBar(
+              currentIndex: navigationController.currentIndex,
+              onTap: (index) {
+                navigationController.navigationPageView(index);
+              },
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: CustomColor.customSwatchColor,
+              selectedItemColor: Colors.white,
+              unselectedItemColor: Colors.white.withAlpha(100),
+              items: const [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.home_outlined), label: 'Home'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.shopping_cart_outlined),
+                    label: 'Carrinho'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.list_alt), label: 'Pedidos'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.person), label: 'Perfil'),
+              ])),
     );
   }
 }

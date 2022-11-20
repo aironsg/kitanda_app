@@ -2,7 +2,8 @@ import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/pages/auth/views/sign_in_screen.dart';
 import 'package:kitanda_app/app/src/pages/auth/views/sing_up_screen.dart';
 import 'package:kitanda_app/app/src/pages/base/base_screen.dart';
-import 'package:kitanda_app/app/src/pages/cart/cart_tab.dart';
+import 'package:kitanda_app/app/src/pages/base/binding/navigation_binding.dart';
+import 'package:kitanda_app/app/src/pages/cart/views/cart_tab.dart';
 import 'package:kitanda_app/app/src/pages/home/bindings/home_bindings.dart';
 import 'package:kitanda_app/app/src/pages/orders/orders_tab.dart';
 import 'package:kitanda_app/app/src/pages/splash/splash_screen.dart';
@@ -15,13 +16,16 @@ abstract class AppPages {
     GetPage(name: PageRoutes.splashRouter, page: () => const SplashScreen()),
     //signUp
     GetPage(name: PageRoutes.signUpRouter, page: (() => SignUpScreen())),
+
     //Home
     GetPage(
+        page: () => const BaseScreen(),
         name: PageRoutes.homeRouter,
         bindings: [
+          NavigationBinding(),
           HomeBindings(),
-        ], //responsavel pela injeção de depedencia na memoria
-        page: () => const BaseScreen()),
+        ]), //responsavel pela injeção de depedencia na memoria
+
     //Cart
     GetPage(
       name: PageRoutes.cartRouter,

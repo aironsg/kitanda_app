@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/config/app_data.dart' as app_data;
 import 'package:kitanda_app/app/src/config/custom_color.dart';
-import 'package:kitanda_app/app/src/pages/cart/cart_tab.dart';
+import 'package:kitanda_app/app/src/pages/cart/views/cart_tab.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/custom_shimmer.dart';
 import 'package:kitanda_app/app/src/pages/home/views/components/item_tile.dart';
 import 'package:kitanda_app/app/src/pages/home/views/home_controller.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kitanda_app/app/src/config/app_data.dart' as app_data;
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/models/cart_item_model.dart';
-import 'package:kitanda_app/app/src/pages/cart/components/cart_tile.dart';
+import 'package:kitanda_app/app/src/pages/cart/views/components/cart_tile.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/payment_dialog.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 

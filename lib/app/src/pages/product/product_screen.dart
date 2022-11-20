@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/models/item_model.dart';
+import 'package:kitanda_app/app/src/pages/base/controller/navigation_controller.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/quantity_widget.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
@@ -18,6 +20,7 @@ class _ProductScreenState extends State<ProductScreen> {
   final UtilsService service = UtilsService();
 
   int value = 1;
+  final navigationController = Get.find<NavigationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +45,7 @@ class _ProductScreenState extends State<ProductScreen> {
             child: Hero(
               transitionOnUserGestures: true,
               tag: widget.item.imgUrl,
-              child: Image.asset(widget.item.imgUrl),
+              child: Image.network(widget.item.imgUrl),
             ),
           ),
           //Descrição
@@ -133,7 +136,9 @@ class _ProductScreenState extends State<ProductScreen> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0))),
                       onPressed: () {
-                        //aqui ficará a logica de adicionar ao carrinho
+                        Get.back();
+                        navigationController
+                            .navigationPageView(NavigationTabs.cart);
                       },
                       icon: const Icon(
                         Icons.shopping_cart_outlined,
