@@ -3,6 +3,7 @@ import 'package:kitanda_app/app/src/pages/auth/views/sign_in_screen.dart';
 import 'package:kitanda_app/app/src/pages/auth/views/sing_up_screen.dart';
 import 'package:kitanda_app/app/src/pages/base/base_screen.dart';
 import 'package:kitanda_app/app/src/pages/base/binding/navigation_binding.dart';
+import 'package:kitanda_app/app/src/pages/cart/binding/cart_binding.dart';
 import 'package:kitanda_app/app/src/pages/cart/views/cart_tab.dart';
 import 'package:kitanda_app/app/src/pages/home/bindings/home_bindings.dart';
 import 'package:kitanda_app/app/src/pages/orders/orders_tab.dart';
@@ -19,12 +20,14 @@ abstract class AppPages {
 
     //Home
     GetPage(
-        page: () => const BaseScreen(),
-        name: PageRoutes.homeRouter,
-        bindings: [
-          NavigationBinding(),
-          HomeBindings(),
-        ]), //responsavel pela injeção de depedencia na memoria
+      page: () => const BaseScreen(),
+      name: PageRoutes.homeRouter,
+      bindings: [
+        NavigationBinding(),
+        HomeBindings(),
+        CartBinding(),
+      ],
+    ), //responsavel pela injeção de depedencia na memoria
 
     //Cart
     GetPage(
@@ -33,7 +36,10 @@ abstract class AppPages {
     ),
     //Orders
 
-    GetPage(name: PageRoutes.orderRouter, page: () => const OrdersTab()),
+    GetPage(
+      name: PageRoutes.orderRouter,
+      page: () => const OrdersTab(),
+    ),
 
     //GetAllCategorys
   ];
