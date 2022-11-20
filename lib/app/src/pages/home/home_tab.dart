@@ -179,29 +179,44 @@ class HomeTab extends StatelessWidget {
               builder: (controller) {
                 return Expanded(
                   child: !controller.isProductLoading
-                      ? GridView.builder(
-                          physics:
-                              const BouncingScrollPhysics(), //responsavel por pausar o efeito de scroll
-                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 10,
-                                  crossAxisSpacing: 10,
-                                  childAspectRatio: 9 / 11.5),
-                          itemCount: controller.allProducts.length,
-                          itemBuilder: (_, index) {
-                            if (((index + 1) ==
-                                    controller.allProducts.length) &&
-                                !controller.isLastPage) {
-                              controller.loadingMoreProducts();
-                            }
+                      ? Visibility(
+                          visible: (controller.currentCategory?.items ?? [])
+                              .isNotEmpty,
+                          replacement: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.search_off,
+                                size: 50,
+                                color: CustomColor.customSwatchColor,
+                              ),
+                              const Text('Nenhum Item para apresentar'),
+                            ],
+                          ),
+                          child: GridView.builder(
+                            physics:
+                                const BouncingScrollPhysics(), //responsavel por pausar o efeito de scroll
+                            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    mainAxisSpacing: 10,
+                                    crossAxisSpacing: 10,
+                                    childAspectRatio: 9 / 11.5),
+                            itemCount: controller.allProducts.length,
+                            itemBuilder: (_, index) {
+                              if (((index + 1) ==
+                                      controller.allProducts.length) &&
+                                  !controller.isLastPage) {
+                                controller.loadingMoreProducts();
+                              }
 
-                            return ItemTile(
-                              item: controller.allProducts[index],
-                              cartAnimationMethod: itemSelectedCartAnimation,
-                            );
-                          },
+                              return ItemTile(
+                                item: controller.allProducts[index],
+                                cartAnimationMethod: itemSelectedCartAnimation,
+                              );
+                            },
+                          ),
                         )
                       : GridView.count(
                           physics: const BouncingScrollPhysics(),

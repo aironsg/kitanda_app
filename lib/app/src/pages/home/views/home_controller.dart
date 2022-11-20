@@ -45,7 +45,7 @@ class HomeController extends GetxController {
     getAllCategories();
 
     debounce(searchTitle, (_) {
-      update();
+      findByTitle();
     }, time: const Duration(milliseconds: 600));
   }
 
@@ -67,6 +67,39 @@ class HomeController extends GetxController {
     );
   }
 
+  void findByTitle() {
+    for (var category in allCategories) {
+      category.items.clear();
+      category.pagination = 0;
+    }
+
+    if (searchTitle.value.isEmpty) {
+      allCategories.removeAt(0);
+    } else {
+      CategoryModel? verifiedCategory =
+          allCategories.firstWhereOrNull((category) => category.id == '');
+
+      if (verifiedCategory == null) {
+        final allProductByTitle = CategoryModel(
+          id: '',
+          title: 'Todos',
+          items: [],
+          pagination: 0,
+        );
+
+        allCategories.insert(0, allProductByTitle);
+      } else {
+        verifiedCategory.items.clear();
+        verifiedCategory.pagination = 0;
+      }
+    }
+
+    currentCategory = allCategories.first;
+    update();
+
+    getAllProducts();
+  }
+
   void loadingMoreProducts() {
     currentCategory!.pagination++;
     getAllProducts(canLoad: false);
@@ -82,6 +115,14 @@ class HomeController extends GetxController {
       'categoryId': currentCategory!.id,
       'itemsPerPage': itemsPerPage,
     };
+
+    if (searchTitle.value.isNotEmpty) {
+      body['title'] = searchTitle.value;
+
+      if (currentCategory!.id == '') {
+        body.remove('categoryId');
+      }
+    }
 
     HomeResult<ItemModel> result = await homeRepository.getAllProducts(body);
     setLoading(false, isProduct: true);
