@@ -10,8 +10,8 @@ import 'package:kitanda_app/app/src/pages/common_widgets/quantity_widget.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({Key? key, required this.item}) : super(key: key);
-  final ItemModel item;
+  ProductScreen({Key? key}) : super(key: key);
+  final ItemModel item = Get.arguments;
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();

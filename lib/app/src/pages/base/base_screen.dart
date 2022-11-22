@@ -36,26 +36,27 @@ class _BaseScreenState extends State<BaseScreen> {
       ),
 
       //bottom Navigation Bar
-      bottomNavigationBar: Obx(() => BottomNavigationBar(
-              currentIndex: navigationController.currentIndex,
-              onTap: (index) {
-                navigationController.navigationPageView(index);
-              },
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: CustomColor.customSwatchColor,
-              selectedItemColor: Colors.white,
-              unselectedItemColor: Colors.white.withAlpha(100),
-              items: const [
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.home_outlined), label: 'Home'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.shopping_cart_outlined),
-                    label: 'Carrinho'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.list_alt), label: 'Pedidos'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.person), label: 'Perfil'),
-              ])),
+      bottomNavigationBar: Obx(
+        () => BottomNavigationBar(
+          currentIndex: navigationController.currentIndex,
+          onTap: (index) {
+            navigationController.navigationPageView(index);
+          },
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: CustomColor.customSwatchColor,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white.withAlpha(100),
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined), label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart_outlined), label: 'Carrinho'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.list_alt), label: 'Pedidos'),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
+          ],
+        ),
+      ),
     );
   }
 }

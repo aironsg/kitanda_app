@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/models/item_model.dart';
-import 'package:kitanda_app/app/src/pages/product/product_screen.dart';
+import 'package:kitanda_app/app/src/pages_routers/app_pages.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
 // ignore: must_be_immutable
@@ -38,9 +39,7 @@ class _ItemTileState extends State<ItemTile> {
         GestureDetector(
           onTap: () {
             //substituir depois por GET
-            Navigator.of(context).push(MaterialPageRoute(builder: (c) {
-              return ProductScreen(item: widget.item);
-            }));
+            Get.toNamed(PageRoutes.productRouter, arguments: widget.item);
           },
           child: Card(
             elevation: 3,

@@ -7,6 +7,7 @@ import 'package:kitanda_app/app/src/pages/cart/binding/cart_binding.dart';
 import 'package:kitanda_app/app/src/pages/cart/views/cart_tab.dart';
 import 'package:kitanda_app/app/src/pages/home/bindings/home_bindings.dart';
 import 'package:kitanda_app/app/src/pages/orders/orders_tab.dart';
+import 'package:kitanda_app/app/src/pages/product/product_screen.dart';
 import 'package:kitanda_app/app/src/pages/splash/splash_screen.dart';
 
 abstract class AppPages {
@@ -42,6 +43,8 @@ abstract class AppPages {
       name: PageRoutes.orderRouter,
       page: () => const OrdersTab(),
     ),
+
+    GetPage(name: PageRoutes.productRouter, page: () => ProductScreen()),
   ];
 }
 
@@ -52,4 +55,5 @@ abstract class PageRoutes {
   static const String homeRouter = '/home';
   static const String cartRouter = '/cart';
   static const String orderRouter = '/orders';
+  static const String productRouter = '/product';
 }
