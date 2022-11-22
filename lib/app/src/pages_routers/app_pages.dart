@@ -13,8 +13,10 @@ abstract class AppPages {
   static final List<GetPage> pages = [
     //SignIn
     GetPage(name: PageRoutes.signInRouter, page: (() => SignInScreen())),
+
     //Splash
     GetPage(name: PageRoutes.splashRouter, page: () => const SplashScreen()),
+
     //signUp
     GetPage(name: PageRoutes.signUpRouter, page: (() => SignUpScreen())),
 
@@ -27,21 +29,19 @@ abstract class AppPages {
         HomeBindings(),
         CartBinding(),
       ],
-    ), //responsavel pela injeção de depedencia na memoria
+    ),
 
     //Cart
     GetPage(
       name: PageRoutes.cartRouter,
       page: () => const CartTab(),
     ),
-    //Orders
 
+    //Orders
     GetPage(
       name: PageRoutes.orderRouter,
       page: () => const OrdersTab(),
     ),
-
-    //GetAllCategorys
   ];
 }
 

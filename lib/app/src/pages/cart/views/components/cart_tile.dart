@@ -6,9 +6,8 @@ import 'package:kitanda_app/app/src/services/utils_service.dart';
 
 class CartTile extends StatefulWidget {
   final CartItemModel cartItem;
-  final Function(CartItemModel) remove;
-  const CartTile({Key? key, required this.cartItem, required this.remove})
-      : super(key: key);
+
+  const CartTile({Key? key, required this.cartItem}) : super(key: key);
 
   @override
   State<CartTile> createState() => _CartTileState();
@@ -25,7 +24,7 @@ class _CartTileState extends State<CartTile> {
       elevation: 3,
       child: ListTile(
         //Imagem
-        leading: Image.asset(
+        leading: Image.network(
           widget.cartItem.item.imgUrl,
           height: 60,
           width: 60,
@@ -51,15 +50,7 @@ class _CartTileState extends State<CartTile> {
         //widget de acrescentar e dimunir
         trailing: QuantityWidget(
           item: widget.cartItem.item,
-          result: (quantity) {
-            setState(() {
-              widget.cartItem.quantity = quantity;
-
-              //removendo item carrinho
-
-              if (quantity == 0) widget.remove(widget.cartItem);
-            });
-          },
+          result: (quantity) {},
           quantity: widget.cartItem.quantity,
           isRemoveble: true,
         ),

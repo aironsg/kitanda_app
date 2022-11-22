@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/config/app_data.dart' as app_data;
 import 'package:kitanda_app/app/src/config/custom_color.dart';
-import 'package:kitanda_app/app/src/models/cart_item_model.dart';
 import 'package:kitanda_app/app/src/pages/cart/views/components/cart_tile.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/payment_dialog.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
+
+import '../controller/cart_controller.dart';
 
 class CartTab extends StatefulWidget {
   const CartTab({Key? key}) : super(key: key);
@@ -15,24 +17,6 @@ class CartTab extends StatefulWidget {
 
 class _CartTabState extends State<CartTab> {
   final UtilsService utilsService = UtilsService();
-
-  void removerItemCart(CartItemModel cartItem) {
-    setState(() {
-      app_data.cartItens.remove(cartItem);
-      utilsService.showToast(
-          message: '${cartItem.item.itemName} Removido do carrinho');
-    });
-  }
-
-  double cartTotalPrice() {
-    double total = 0;
-
-    for (var item in app_data.cartItens) {
-      total += item.totalPrice();
-    }
-
-    return total;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +34,17 @@ class _CartTabState extends State<CartTab> {
         children: [
           //Lista de Itens
           Expanded(
-            child: ListView.builder(
-              itemBuilder: (_, index) {
-                return CartTile(
-                  cartItem: app_data.cartItens[index],
-                  remove: removerItemCart,
+            child: GetBuilder<CartController>(
+              builder: (controller) {
+                return ListView.builder(
+                  itemBuilder: (_, index) {
+                    return CartTile(
+                      cartItem: controller.cartItem[index],
+                    );
+                  },
+                  itemCount: controller.cartItem.length,
                 );
               },
-              itemCount: app_data.cartItens.length,
             ),
           ),
 
@@ -90,13 +77,18 @@ class _CartTabState extends State<CartTab> {
                 ),
 
                 //Preço
-                Text(
-                  utilsService.formatNumberCurrency(cartTotalPrice()),
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: CustomColor.customSwatchColor,
-                    fontWeight: FontWeight.bold,
-                  ),
+                GetBuilder<CartController>(
+                  builder: (controller) {
+                    return Text(
+                      utilsService
+                          .formatNumberCurrency(controller.cartTotalPrice()),
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: CustomColor.customSwatchColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  },
                 ),
                 //Botão comprar
                 SizedBox(

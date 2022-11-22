@@ -1,4 +1,3 @@
-import 'package:kitanda_app/app/src/models/cart_item_model.dart';
 import 'package:kitanda_app/app/src/models/orders_model.dart';
 import 'package:kitanda_app/app/src/models/user_model.dart';
 
@@ -69,14 +68,14 @@ List<ItemModel> items = [
 ];
 
 //Lista Itens carrinho
-List<CartItemModel> cartItens = [
-  CartItemModel(item: apple, quantity: 4),
-  CartItemModel(item: guava, quantity: 2),
-  CartItemModel(item: papaya, quantity: 1),
-  CartItemModel(item: mango, quantity: 2),
-  CartItemModel(item: grape, quantity: 2),
-  CartItemModel(item: kiwi, quantity: 1),
-];
+// List<CartItemModel> cartItens = [
+//   CartItemModel(item: apple, quantity: 4),
+//   CartItemModel(item: guava, quantity: 2),
+//   CartItemModel(item: papaya, quantity: 1),
+//   CartItemModel(item: mango, quantity: 2),
+//   CartItemModel(item: grape, quantity: 2),
+//   CartItemModel(item: kiwi, quantity: 1),
+// ];
 
 UserModel user = UserModel(
     name: 'Airon',
@@ -94,9 +93,9 @@ List<OrdersModel> orders = [
     status: 'pending_payment',
     copyAndPaste: 'kbg6j39cm3',
     items: [
-      CartItemModel(item: apple, quantity: 2),
-      CartItemModel(item: mango, quantity: 3),
-      CartItemModel(item: grape, quantity: 5),
+      // CartItemModel(item: apple, quantity: 2),
+      // CartItemModel(item: mango, quantity: 3),
+      // CartItemModel(item: grape, quantity: 5),
     ],
     total: cartTotalPrice(),
   ),
@@ -109,8 +108,8 @@ List<OrdersModel> orders = [
     status: 'paid',
     copyAndPaste: 'kbg6j39cm3',
     items: [
-      CartItemModel(item: apple, quantity: 2),
-      CartItemModel(item: grape, quantity: 5),
+      // CartItemModel(item: apple, quantity: 2),
+      // CartItemModel(item: grape, quantity: 5),
     ],
     total: cartTotalPrice(),
   ),
@@ -123,7 +122,7 @@ List<OrdersModel> orders = [
     status: 'refunded',
     copyAndPaste: 'lgjii3a9m3',
     items: [
-      CartItemModel(item: kiwi, quantity: 15),
+      //CartItemModel(item: kiwi, quantity: 15),
     ],
     total: cartTotalPrice(),
   ),
@@ -132,9 +131,9 @@ List<OrdersModel> orders = [
 double cartTotalPrice() {
   double total = 0;
 
-  for (var item in cartItens) {
-    total += item.totalPrice();
-  }
+  // for (var item in cartItens) {
+  //   total += item.totalPrice();
+  // }
 
   return total;
 }

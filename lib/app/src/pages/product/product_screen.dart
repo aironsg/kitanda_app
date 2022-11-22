@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/models/item_model.dart';
 import 'package:kitanda_app/app/src/pages/base/controller/navigation_controller.dart';
+import 'package:kitanda_app/app/src/pages/cart/controller/cart_controller.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/quantity_widget.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
@@ -19,8 +20,9 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   final UtilsService service = UtilsService();
 
-  int value = 1;
+  int cartItemQuantity = 1;
   final navigationController = Get.find<NavigationController>();
+  final cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -85,10 +87,10 @@ class _ProductScreenState extends State<ProductScreen> {
 
                           QuantityWidget(
                             item: widget.item,
-                            quantity: value,
+                            quantity: cartItemQuantity,
                             result: (quantity) {
                               setState(() {
-                                value = quantity;
+                                cartItemQuantity = quantity;
                               });
                             },
                           ),
@@ -137,6 +139,8 @@ class _ProductScreenState extends State<ProductScreen> {
                               borderRadius: BorderRadius.circular(20.0))),
                       onPressed: () {
                         Get.back();
+                        cartController.addItemToCart(
+                            item: widget.item, quantity: cartItemQuantity);
                         navigationController
                             .navigationPageView(NavigationTabs.cart);
                       },
