@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/models/cart_item_model.dart';
+import 'package:kitanda_app/app/src/pages/cart/controller/cart_controller.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/quantity_widget.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
@@ -15,6 +17,8 @@ class CartTile extends StatefulWidget {
 
 class _CartTileState extends State<CartTile> {
   final UtilsService utilsService = UtilsService();
+
+  final cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +54,12 @@ class _CartTileState extends State<CartTile> {
         //widget de acrescentar e dimunir
         trailing: QuantityWidget(
           item: widget.cartItem.item,
-          result: (quantity) {},
+          result: (quantity) {
+            cartController.changeItemQuantity(
+              item: widget.cartItem,
+              quantity: quantity,
+            );
+          },
           quantity: widget.cartItem.quantity,
           isRemoveble: true,
         ),

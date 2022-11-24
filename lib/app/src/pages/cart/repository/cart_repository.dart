@@ -9,10 +9,11 @@ class CartRepository {
   Future<CartResult<List<CartItemModel>>> getCartItems(
       {required String token, required String userId}) async {
     final result = await _httpManager.restRequest(
-        url: EndPoints.getCartItem,
-        method: HttpMethod.post,
-        hearders: {'X-Parse-Session-Token': token},
-        body: {'user': userId});
+      url: EndPoints.getCartItem,
+      method: HttpMethod.post,
+      hearders: {'X-Parse-Session-Token': token},
+      body: {'user': userId},
+    );
 
     if (result['result'] != null) {
       List<CartItemModel> data =

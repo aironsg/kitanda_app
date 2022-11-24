@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/config/app_data.dart' as app_data;
 import 'package:kitanda_app/app/src/config/custom_color.dart';
-import 'package:kitanda_app/app/src/pages/cart/views/cart_tab.dart';
+import 'package:kitanda_app/app/src/pages/base/controller/navigation_controller.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/custom_shimmer.dart';
 import 'package:kitanda_app/app/src/pages/home/views/components/item_tile.dart';
 import 'package:kitanda_app/app/src/pages/home/views/home_controller.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
+import '../cart/controller/cart_controller.dart';
 import '../common_widgets/app_name_widget.dart';
 import 'views/components/category.tile.dart';
 
@@ -19,7 +20,7 @@ class HomeTab extends StatelessWidget {
   HomeTab({Key? key}) : super(key: key);
 
   UtilsService utilsService = UtilsService();
-
+  final navigationController = Get.find<NavigationController>();
   final searchController = TextEditingController();
 
   final GlobalKey<CartIconKey> globalKeyCartItems = GlobalKey<CartIconKey>();
@@ -42,27 +43,32 @@ class HomeTab extends StatelessWidget {
             padding: const EdgeInsets.only(top: 15.0, right: 20.0),
 
             //Carrinho
-            child: GestureDetector(
-              onTap: () {
-                //logica para carrinho
-                Get.to(const CartTab());
-              },
-              child: Badge(
-                badgeContent: Text(
-                  //esta linha será alterado
-                  '2',
-                  style: TextStyle(
-                      fontSize: 12, color: CustomColor.customCategoryColor),
-                ),
-                badgeColor: CustomColor.customContrasctColor,
-                child: AddToCartIcon(
-                  key: globalKeyCartItems,
-                  icon: Icon(
-                    Icons.shopping_cart,
-                    color: CustomColor.customSwatchColor,
+            child: GetBuilder<CartController>(
+              builder: (controller) {
+                return GestureDetector(
+                  onTap: () {
+                    navigationController
+                        .navigationPageView(NavigationTabs.cart);
+                  },
+                  child: Badge(
+                    badgeContent: Text(
+                      //esta linha será alterado
+                      controller.cartItems.length.toString(),
+
+                      style: TextStyle(
+                          fontSize: 12, color: CustomColor.customCategoryColor),
+                    ),
+                    badgeColor: CustomColor.customContrasctColor,
+                    child: AddToCartIcon(
+                      key: globalKeyCartItems,
+                      icon: Icon(
+                        Icons.shopping_cart,
+                        color: CustomColor.customSwatchColor,
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
           )
         ],

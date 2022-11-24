@@ -10,12 +10,19 @@ class CartController extends GetxController {
   final cartRepository = CartRepository();
   final authController = Get.find<AuthController>();
   final utilsService = UtilsService();
-  List<CartItemModel> cartItem = [];
+  List<CartItemModel> cartItems = [];
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    getCartItems();
+  }
 
   double cartTotalPrice() {
     double total = 0;
 
-    for (final item in cartItem) {
+    for (final item in cartItems) {
       total += item.totalPrice();
     }
 
@@ -30,6 +37,22 @@ class CartController extends GetxController {
       quantity: quantity,
     );
 
+    if (result) {
+      if (quantity == 0) {
+        cartItems.removeWhere((cartItem) => cartItem.id == item.id);
+      } else {
+        cartItems.firstWhere((cartItem) => cartItem.id == item.id).quantity =
+            quantity;
+      }
+    } else {
+      utilsService.showToast(
+        message: 'Não foi possivel modificar item do carrinho',
+        isError: true,
+      );
+    }
+
+    update();
+
     return result;
   }
 
@@ -42,7 +65,7 @@ class CartController extends GetxController {
 
     result.when(
       success: ((data) {
-        cartItem = data;
+        cartItems = data;
         update();
       }),
       error: (message) {
@@ -52,24 +75,16 @@ class CartController extends GetxController {
   }
 
   getItemIndex({required ItemModel item}) {
-    return cartItem.indexWhere((itemToList) => itemToList.item.id == item.id);
+    return cartItems.indexWhere((itemToList) => itemToList.item.id == item.id);
   }
 
   Future<void> addItemToCart(
       {required ItemModel item, int quantity = 1}) async {
     int intemIndex = getItemIndex(item: item);
     if (intemIndex >= 0) {
-      final product = cartItem[intemIndex];
-      final result = await changeItemQuantity(
+      final product = cartItems[intemIndex];
+      await changeItemQuantity(
           item: product, quantity: (quantity + product.quantity));
-      if (result) {
-        cartItem[intemIndex].quantity += quantity;
-      } else {
-        utilsService.showToast(
-          message: 'Não foi possivel modificar item do carrinho',
-          isError: true,
-        );
-      }
     } else {
       final CartResult<String> result = await cartRepository.addItemToCart(
           userId: authController.user.id!,
@@ -79,7 +94,7 @@ class CartController extends GetxController {
 
       result.when(
         success: (cartItemId) {
-          cartItem.add(
+          cartItems.add(
             CartItemModel(
               id: cartItemId,
               item: item,

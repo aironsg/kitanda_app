@@ -36,13 +36,32 @@ class _CartTabState extends State<CartTab> {
           Expanded(
             child: GetBuilder<CartController>(
               builder: (controller) {
+                if (controller.cartItems.isEmpty) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.remove_shopping_cart,
+                        size: 50,
+                        color: CustomColor.customSwatchColor,
+                      ),
+                      const Text(
+                        'Carrinho vazio!',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    ],
+                  );
+                }
                 return ListView.builder(
+                  itemCount: controller.cartItems.length,
                   itemBuilder: (_, index) {
                     return CartTile(
-                      cartItem: controller.cartItem[index],
+                      cartItem: controller.cartItems[index],
                     );
                   },
-                  itemCount: controller.cartItem.length,
                 );
               },
             ),

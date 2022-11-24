@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/models/item_model.dart';
+import 'package:kitanda_app/app/src/pages/cart/controller/cart_controller.dart';
 import 'package:kitanda_app/app/src/pages_routers/app_pages.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
@@ -23,6 +24,7 @@ class _ItemTileState extends State<ItemTile> {
   final GlobalKey imageGk = GlobalKey();
   final UtilsService service = UtilsService();
   IconData tileIcon = Icons.add_shopping_cart;
+  final cartController = Get.find<CartController>();
 
   Future<void> switchIcon() async {
     setState(() => tileIcon = Icons.check);
@@ -38,7 +40,6 @@ class _ItemTileState extends State<ItemTile> {
       children: [
         GestureDetector(
           onTap: () {
-            //substituir depois por GET
             Get.toNamed(PageRoutes.productRouter, arguments: widget.item);
           },
           child: Card(
@@ -116,6 +117,7 @@ class _ItemTileState extends State<ItemTile> {
                 onTap: () {
                   switchIcon();
                   widget.cartAnimationMethod(imageGk);
+                  cartController.addItemToCart(item: widget.item);
                 },
                 child: Ink(
                   height: 40,
