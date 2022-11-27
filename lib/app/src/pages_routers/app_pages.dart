@@ -6,7 +6,8 @@ import 'package:kitanda_app/app/src/pages/base/binding/navigation_binding.dart';
 import 'package:kitanda_app/app/src/pages/cart/binding/cart_binding.dart';
 import 'package:kitanda_app/app/src/pages/cart/views/cart_tab.dart';
 import 'package:kitanda_app/app/src/pages/home/bindings/home_bindings.dart';
-import 'package:kitanda_app/app/src/pages/orders/orders_tab.dart';
+import 'package:kitanda_app/app/src/pages/orders/binding/orders_bindings.dart';
+import 'package:kitanda_app/app/src/pages/orders/views/orders_tab.dart';
 import 'package:kitanda_app/app/src/pages/product/product_screen.dart';
 import 'package:kitanda_app/app/src/pages/splash/splash_screen.dart';
 
@@ -29,6 +30,7 @@ abstract class AppPages {
         NavigationBinding(),
         HomeBindings(),
         CartBinding(),
+        OrdersBindings(),
       ],
     ),
 

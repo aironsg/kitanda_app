@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/pages/cart/views/cart_tab.dart';
 import 'package:kitanda_app/app/src/pages/home/home_tab.dart';
-import 'package:kitanda_app/app/src/pages/orders/orders_tab.dart';
+import 'package:kitanda_app/app/src/pages/orders/views/orders_tab.dart';
 import 'package:kitanda_app/app/src/pages/profile/profile_tab.dart';
 
 import 'controller/navigation_controller.dart';

@@ -9,16 +9,19 @@ part 'part_of_models/orders_model.g.dart';
 @JsonSerializable()
 class OrderModel {
   final String id;
+  @JsonKey(name: 'createdAt')
   final DateTime? createdDateTime;
   @JsonKey(name: 'due')
   final DateTime overdueDateTime;
   @JsonKey(defaultValue: [])
-  final List<CartItemModel> items;
+  List<CartItemModel> items;
   final String status;
   @JsonKey(name: 'copiaecola')
   final String copyAndPaste;
   final double total;
   final String qrCodeImage;
+
+  bool get isOverdue => overdueDateTime.isBefore(DateTime.now());
 
   OrderModel({
     required this.id,
