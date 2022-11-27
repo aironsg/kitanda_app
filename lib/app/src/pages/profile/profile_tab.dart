@@ -107,7 +107,7 @@ class _ProfileTabState extends State<ProfileTab> {
   Future<bool?> updatePassword() {
     final currentPasswordEC = TextEditingController();
     final newPasswordEC = TextEditingController();
-    final repeatPasswordEC = TextEditingController();
+
     final formKey = GlobalKey<FormState>();
 
     return showDialog(
@@ -143,26 +143,13 @@ class _ProfileTabState extends State<ProfileTab> {
 
                           //Senha atual
                           CustomFormField(
-                            controller: currentPasswordEC,
-                            inputType: TextInputType.text,
-                            label: 'Senha Atual',
-                            hint: '',
-                            icon: const Icon(Icons.lock),
-                            isSecret: true,
-                            validator: (password) {
-                              final result = passwordValidator(password);
-                              if (result != null) {
-                                return result;
-                              }
-
-                              if (password != authController.user.password) {
-                                print(authController.user.password);
-                                return 'Senha incorreta';
-                              }
-
-                              return null;
-                            },
-                          ),
+                              controller: currentPasswordEC,
+                              inputType: TextInputType.text,
+                              label: 'Senha Atual',
+                              hint: '',
+                              icon: const Icon(Icons.lock),
+                              isSecret: true,
+                              validator: passwordValidator),
                           //Nova senha
                           CustomFormField(
                             controller: newPasswordEC,
@@ -176,7 +163,6 @@ class _ProfileTabState extends State<ProfileTab> {
 
                           //Repetição de nova senha
                           CustomFormField(
-                            controller: repeatPasswordEC,
                             inputType: TextInputType.text,
                             label: 'Repetir Senha',
                             hint: '',
@@ -200,19 +186,34 @@ class _ProfileTabState extends State<ProfileTab> {
                           //Botão de atualização
                           SizedBox(
                             height: 40,
-                            child: ElevatedButton(
+                            child: Obx(
+                              () => ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30))),
-                                onPressed: () {
-                                  formKey.currentState!.validate();
-                                },
-                                child: const Text(
-                                  'Atualizar',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16.0),
-                                )),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                ),
+                                onPressed: authController.isLoading.value
+                                    ? null
+                                    : () {
+                                        if (formKey.currentState!.validate()) {
+                                          authController.changePassword(
+                                            currentPassword:
+                                                currentPasswordEC.text,
+                                            newPassword: newPasswordEC.text,
+                                          );
+                                        }
+                                      },
+                                child: authController.isLoading.value
+                                    ? const CircularProgressIndicator()
+                                    : const Text(
+                                        'Atualizar',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.0),
+                                      ),
+                              ),
+                            ),
                           )
                         ],
                       ),
