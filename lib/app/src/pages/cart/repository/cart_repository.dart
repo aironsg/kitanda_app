@@ -1,5 +1,6 @@
 import 'package:kitanda_app/app/src/constants/endpoints.dart';
 import 'package:kitanda_app/app/src/models/cart_item_model.dart';
+import 'package:kitanda_app/app/src/models/orders_model.dart';
 import 'package:kitanda_app/app/src/pages/cart/cart_result/cart_result.dart';
 import 'package:kitanda_app/app/src/services/http_magager.dart';
 
@@ -61,6 +62,23 @@ class CartRepository {
       return CartResult.success(result['result']['id']);
     } else {
       return CartResult.error('Não foi possivel ao adicionar item no carrinho');
+    }
+  }
+
+  Future<CartResult<OrderModel>> checkout(
+      {required String token, required double total}) async {
+    final result = await _httpManager.restRequest(
+      url: EndPoints.checkout,
+      method: HttpMethod.post,
+      hearders: {'X-Parse-Session-Token': token},
+      body: {'total': total},
+    );
+
+    if (result['result'] != null) {
+      final order = OrderModel.fromJson(result['result']);
+      return CartResult<OrderModel>.success(order);
+    } else {
+      return CartResult.error('Não foi possivel concluir o pedido');
     }
   }
 }

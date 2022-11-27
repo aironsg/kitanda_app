@@ -84,48 +84,48 @@ UserModel user = UserModel(
     cpf: '000.000.000-00',
     password: '');
 
-List<OrdersModel> orders = [
-  //Pedido 1
-  OrdersModel(
-    id: 'a5jc4me8',
-    createdDateTime: DateTime.parse('2022-10-15 19:35:54.250'),
-    overdueDateTime: DateTime.parse('2022-10-20 20:35:54.250'),
-    status: 'pending_payment',
-    copyAndPaste: 'kbg6j39cm3',
-    items: [
-      // CartItemModel(item: apple, quantity: 2),
-      // CartItemModel(item: mango, quantity: 3),
-      // CartItemModel(item: grape, quantity: 5),
-    ],
-    total: cartTotalPrice(),
-  ),
+List<OrderModel> orders = [
+//   //Pedido 1
+//   OrderModel(
+//     id: 'a5jc4me8',
+//     createdDateTime: DateTime.parse('2022-10-15 19:35:54.250'),
+//     overdueDateTime: DateTime.parse('2022-10-20 20:35:54.250'),
+//     status: 'pending_payment',
+//     copyAndPaste: 'kbg6j39cm3',
+//     items: [
+//       // CartItemModel(item: apple, quantity: 2),
+//       // CartItemModel(item: mango, quantity: 3),
+//       // CartItemModel(item: grape, quantity: 5),
+//     ],
+//     total: cartTotalPrice(),
+//   ),
 
-  //Pedido 2
-  OrdersModel(
-    id: 'a5jcdfd2',
-    createdDateTime: DateTime.parse('2022-10-13 19:35:54.250'),
-    overdueDateTime: DateTime.parse('2022-10-19 20:35:54.250'),
-    status: 'paid',
-    copyAndPaste: 'kbg6j39cm3',
-    items: [
-      // CartItemModel(item: apple, quantity: 2),
-      // CartItemModel(item: grape, quantity: 5),
-    ],
-    total: cartTotalPrice(),
-  ),
+//   //Pedido 2
+//   OrderModel(
+//     id: 'a5jcdfd2',
+//     createdDateTime: DateTime.parse('2022-10-13 19:35:54.250'),
+//     overdueDateTime: DateTime.parse('2022-10-19 20:35:54.250'),
+//     status: 'paid',
+//     copyAndPaste: 'kbg6j39cm3',
+//     items: [
+//       // CartItemModel(item: apple, quantity: 2),
+//       // CartItemModel(item: grape, quantity: 5),
+//     ],
+//     total: cartTotalPrice(),
+//   ),
 
-  //Pedido 3
-  OrdersModel(
-    id: 'jch5sm99s',
-    createdDateTime: DateTime.parse('2022-10-14 19:35:54.250'),
-    overdueDateTime: DateTime.parse('2022-10-14 20:35:54.250'),
-    status: 'refunded',
-    copyAndPaste: 'lgjii3a9m3',
-    items: [
-      //CartItemModel(item: kiwi, quantity: 15),
-    ],
-    total: cartTotalPrice(),
-  ),
+//   //Pedido 3
+//   // OrderModel(
+//   //   id: 'jch5sm99s',
+//   //   createdDateTime: DateTime.parse('2022-10-14 19:35:54.250'),
+//   //   overdueDateTime: DateTime.parse('2022-10-14 20:35:54.250'),
+//   //   status: 'refunded',
+//   //   copyAndPaste: 'lgjii3a9m3',
+//   //   items: [
+//   //     //CartItemModel(item: kiwi, quantity: 15),
+//   //   ],
+//   //   total: cartTotalPrice(),
+//   // ),
 ];
 
 double cartTotalPrice() {

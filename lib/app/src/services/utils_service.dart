@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -49,5 +52,10 @@ class UtilsService {
       textColor: isError ? Colors.white : Colors.black,
       fontSize: 16.0,
     );
+  }
+
+  Uint8List qrFormat(String stringQrCode) {
+    final String base64String = stringQrCode.split(',').last;
+    return base64Decode(base64String);
   }
 }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kitanda_app/app/src/config/app_data.dart' as app_data;
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/pages/cart/views/components/cart_tile.dart';
-import 'package:kitanda_app/app/src/pages/common_widgets/payment_dialog.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
 import '../controller/cart_controller.dart';
@@ -17,6 +15,7 @@ class CartTab extends StatefulWidget {
 
 class _CartTabState extends State<CartTab> {
   final UtilsService utilsService = UtilsService();
+  final cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -112,35 +111,38 @@ class _CartTabState extends State<CartTab> {
                 //Botão comprar
                 SizedBox(
                   height: 50,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                  child: GetBuilder<CartController>(
+                    builder: (controller) {
+                      return ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
                         ),
-                      ),
-                      onPressed: () async {
-                        var result = await showOrderConfirmation();
-                        if (result ?? false) {
-                          showDialog(
-                            context: context,
-                            builder: (_) {
-                              return PaymentDialog(
-                                  order: app_data.orders.first);
-                            },
-                          );
-                        } else {
-                          utilsService.showToast(
-                              message: 'Pedido não confirmado', isError: true);
-                        }
-                      },
-                      child: const Text(
-                        'Finalizar Compra',
-                        style: TextStyle(
-                            fontSize: 24.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600),
-                      )),
-                )
+                        onPressed: controller.isCheckoutLoading
+                            ? null
+                            : () async {
+                                var result = await showOrderConfirmation();
+                                if (result ?? false) {
+                                  cartController.checkoutCart();
+                                } else {
+                                  utilsService.showToast(
+                                      message: 'Pedido não confirmado');
+                                }
+                              },
+                        child: controller.isCheckoutLoading
+                            ? const CircularProgressIndicator()
+                            : const Text(
+                                'Finalizar Compra',
+                                style: TextStyle(
+                                    fontSize: 24.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           )

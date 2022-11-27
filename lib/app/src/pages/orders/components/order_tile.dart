@@ -6,7 +6,7 @@ import 'package:kitanda_app/app/src/pages/orders/components/order_status_widgtes
 import 'package:kitanda_app/app/src/services/utils_service.dart';
 
 class OrderTile extends StatelessWidget {
-  final OrdersModel order;
+  final OrderModel order;
   OrderTile({Key? key, required this.order}) : super(key: key);
 
   final UtilsService utilsService = UtilsService();
@@ -28,7 +28,7 @@ class OrderTile extends StatelessWidget {
             children: [
               Text('Pedido: ${order.id}'),
               Text(
-                utilsService.formatDateTime(order.createdDateTime),
+                utilsService.formatDateTime(order.createdDateTime!),
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 12.0,

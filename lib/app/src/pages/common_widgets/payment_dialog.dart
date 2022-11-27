@@ -1,11 +1,12 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/models/orders_model.dart';
 import 'package:kitanda_app/app/src/services/utils_service.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+
+import '../../config/custom_color.dart';
 
 class PaymentDialog extends StatelessWidget {
-  final OrdersModel order;
+  final OrderModel order;
   final UtilsService utilsService = UtilsService();
   PaymentDialog({Key? key, required this.order}) : super(key: key);
 
@@ -30,10 +31,10 @@ class PaymentDialog extends StatelessWidget {
                 ),
 
                 //QR code
-                QrImage(
-                  data: order.copyAndPaste,
-                  version: QrVersions.auto,
-                  size: 200.0,
+                Image.memory(
+                  utilsService.qrFormat(order.qrCodeImage),
+                  height: 200,
+                  width: 200,
                 ),
 
                 //data vencimento
@@ -47,7 +48,7 @@ class PaymentDialog extends StatelessWidget {
 
                 //total
                 Text(
-                  'Total: ${utilsService.formatNumberCurrency(order.cartTotalPrice(order.items))}',
+                  'Total: ${utilsService.formatNumberCurrency(order.total)}',
                   style: const TextStyle(
                     fontSize: 18.0,
                     fontStyle: FontStyle.italic,
@@ -62,7 +63,11 @@ class PaymentDialog extends StatelessWidget {
                           color: CustomColor.customSwatchColor, width: 2),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20))),
-                  onPressed: () {},
+                  onPressed: () {
+                    FlutterClipboard.copy(order.copyAndPaste);
+                    utilsService.showToast(
+                        message: 'Codigo Copiado com Sucesso!');
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
