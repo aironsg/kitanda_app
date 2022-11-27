@@ -61,7 +61,6 @@ class OrderTile extends StatelessWidget {
                     ]
                   : [
                       //Inicio
-
                       IntrinsicHeight(
                         //Descrição pedido
                         child: Row(
@@ -71,7 +70,8 @@ class OrderTile extends StatelessWidget {
                               child: SizedBox(
                                 height: 150,
                                 child: ListView(
-                                  children: order.items.map((orderItem) {
+                                  children:
+                                      controller.order.items.map((orderItem) {
                                     //Descrição Pedidos
                                     return _OrderItemWidget(
                                       utilsService: utilsService,

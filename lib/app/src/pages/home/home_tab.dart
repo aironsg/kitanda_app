@@ -3,7 +3,7 @@ import 'package:add_to_cart_animation/add_to_cart_icon.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kitanda_app/app/src/config/app_data.dart' as app_data;
+
 import 'package:kitanda_app/app/src/config/custom_color.dart';
 import 'package:kitanda_app/app/src/pages/base/controller/navigation_controller.dart';
 import 'package:kitanda_app/app/src/pages/common_widgets/custom_shimmer.dart';
@@ -232,7 +232,7 @@ class HomeTab extends StatelessWidget {
                           crossAxisSpacing: 10,
                           childAspectRatio: 9 / 11.5,
                           children: List.generate(
-                            app_data.items.length,
+                            controller.allProducts.length,
                             (index) => CustomShimmer(
                               borderRadius: BorderRadius.circular(20),
                               height: double.infinity,
